@@ -15,14 +15,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased `}>
+      <body className={`${poppins.className} antialiased`}>
         <header className="py-2 md:w-11/12 mx-auto">
-          <Navbar></Navbar>
+          <Navbar />
         </header>
 
         <main className="py-2 md:w-11/12 mx-auto">{children}</main>
+
         <footer>
-          <Footer></Footer>
+          <Footer />
         </footer>
       </body>
     </html>
