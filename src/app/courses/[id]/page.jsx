@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import { getCourseById } from "@/actions/server/course";
+import CartButton from "@/components/buttons/CartButton";
 
 const CourseDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -284,9 +285,7 @@ const CourseDetailsPage = async ({ params }) => {
               </div>
 
               {/* Enroll Button */}
-              <button className="btn btn-primary w-full rounded-full text-base">
-                Enroll Now
-              </button>
+              <CartButton course={course} ></CartButton>
 
               <p className="mt-4 text-center text-xs text-base-content/50">
                 Start learning today and build your skills.

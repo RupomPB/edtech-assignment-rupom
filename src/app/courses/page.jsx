@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCourses, getCombos } from "@/actions/server/course";
+import CartButton from "@/components/buttons/CartButton";
 
 const CoursesPage = async () => {
   const [courses, combos] = await Promise.all([
@@ -111,9 +112,7 @@ const CoursesPage = async () => {
                         View Details
                       </Link>
 
-                      <button className="btn btn-outline btn-primary flex-1 rounded-full">
-                        Add to Cart
-                      </button>
+                      <CartButton course={course}></CartButton>
                     </div>
                   </div>
                 </div>
@@ -223,9 +222,7 @@ const CoursesPage = async () => {
                       View Combo
                     </Link>
 
-                    <button className="btn btn-outline btn-primary flex-1 rounded-full">
-                      Add to Cart
-                    </button>
+                    <CartButton combo={combo}></CartButton>
                   </div>
                 </div>
               </article>

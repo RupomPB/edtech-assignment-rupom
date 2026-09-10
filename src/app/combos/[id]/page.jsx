@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getComboById } from "@/actions/server/course";
+import CartButton from "@/components/buttons/CartButton";
 
 const CombosDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -364,9 +365,7 @@ const CombosDetailsPage = async ({ params }) => {
               </div>
 
               {/* Action */}
-              <button className="btn btn-primary w-full rounded-full text-base">
-                Add Combo to Cart
-              </button>
+              <CartButton combo= {combo} ></CartButton>
 
               <Link
                 href="/courses"
