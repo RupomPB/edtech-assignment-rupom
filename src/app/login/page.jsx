@@ -110,7 +110,7 @@ const LoginPage = () => {
           {/* Register */}
           <div className="mt-7 text-center text-sm">
             <span className="text-base-content/60">
-              Don't have an account?{" "}
+              Don  t have an account?{" "}
             </span>
 
             <Link
