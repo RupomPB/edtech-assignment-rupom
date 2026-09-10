@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const CourseCard = ({ course }) => {
@@ -79,9 +80,11 @@ const CourseCard = ({ course }) => {
             </p>
           </div>
 
-          <button className="btn btn-primary rounded-full px-5">
+          <Link
+             href={`/courses/${course._id}`}
+          className="btn btn-primary rounded-full px-5">
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
