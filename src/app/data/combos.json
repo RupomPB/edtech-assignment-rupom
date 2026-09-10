@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Frontend Developer Combo",
+    "slug": "frontend-developer-combo",
+    "thumbnail": "/assets/combos/frontend-developer-combo.jpg",
+    "shortDescription": "Master JavaScript, React and modern frontend development with this complete combo package.",
+    "courseIds": [
+      "complete-web-development-bootcamp",
+      "javascript-mastery",
+      "react-js-beginner-to-advanced"
+    ],
+    "regularPrice": 12997,
+    "price": 8999,
+    "discount": 31,
+    "rating": 4.9,
+    "totalCourses": 3
+  },
+  {
+    "title": "Full Stack Developer Combo",
+    "slug": "full-stack-developer-combo",
+    "thumbnail": "/assets/combos/full-stack-developer-combo.jpg",
+    "shortDescription": "Build complete full-stack applications with React, Next.js, Node.js, Express and MongoDB.",
+    "courseIds": [
+      "react-js-beginner-to-advanced",
+      "nextjs-full-stack-development",
+      "nodejs-express-backend-development",
+      "mongodb-database-fundamentals"
+    ],
+    "regularPrice": 14796,
+    "price": 10999,
+    "discount": 26,
+    "rating": 4.9,
+    "totalCourses": 4
+  },
+  {
+    "title": "Modern Web Developer Combo",
+    "slug": "modern-web-developer-combo",
+    "thumbnail": "/assets/combos/modern-web-developer-combo.jpg",
+    "shortDescription": "Learn JavaScript, React and Next.js to build modern and professional web applications.",
+    "courseIds": [
+      "javascript-mastery",
+      "react-js-beginner-to-advanced",
+      "nextjs-full-stack-development"
+    ],
+    "regularPrice": 11497,
+    "price": 7999,
+    "discount": 30,
+    "rating": 4.8,
+    "totalCourses": 3
+  },
+  {
+    "title": "Developer Starter Combo",
+    "slug": "developer-starter-combo",
+    "thumbnail": "/assets/combos/developer-starter-combo.jpg",
+    "shortDescription": "Start your developer journey with JavaScript, Git, GitHub and MongoDB fundamentals.",
+    "courseIds": [
+      "javascript-mastery",
+      "git-github-for-developers",
+      "mongodb-database-fundamentals"
+    ],
+    "regularPrice": 6997,
+    "price": 4999,
+    "discount": 29,
+    "rating": 4.7,
+    "totalCourses": 3
+  }
+]
