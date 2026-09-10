@@ -8,20 +8,17 @@ const CoursesPage = async () => {
   return (
     <main className="min-h-screen ">
       <section className="container mx-auto px-4 py-10 lg:py-14">
-
         {/* Header */}
         <div className="mb-10">
-          <p className="font-semibold text-primary">
-            Learn & Grow
-          </p>
+          <p className="font-semibold text-primary">Learn & Grow</p>
 
           <h1 className="mt-2 text-4xl font-extrabold tracking-tight md:text-5xl">
             Explore Our Courses
           </h1>
 
           <p className="mt-3 max-w-2xl text-base-content/60">
-            Learn practical skills from our carefully designed courses
-            and take your career to the next level.
+            Learn practical skills from our carefully designed courses and take
+            your career to the next level.
           </p>
         </div>
 
@@ -29,9 +26,7 @@ const CoursesPage = async () => {
         {courses.length === 0 ? (
           <div className="flex min-h-[40vh] items-center justify-center">
             <div className="text-center">
-              <h2 className="text-2xl font-bold">
-                No Courses Found
-              </h2>
+              <h2 className="text-2xl font-bold">No Courses Found</h2>
 
               <p className="mt-2 text-base-content/60">
                 There are no courses available right now.
@@ -58,7 +53,6 @@ const CoursesPage = async () => {
 
                 {/* Content */}
                 <div className="p-5">
-
                   {/* Category + Level */}
                   <div className="mb-3 flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
@@ -82,13 +76,9 @@ const CoursesPage = async () => {
 
                   {/* Course Info */}
                   <div className="mt-4 flex items-center justify-between text-sm text-base-content/60">
-                    <span>
-                      ⏱️ {course.duration}
-                    </span>
+                    <span>⏱️ {course.duration}</span>
 
-                    <span>
-                      ⭐ {course.rating}
-                    </span>
+                    <span>⭐ {course.rating}</span>
                   </div>
 
                   {/* Price + Button */}
@@ -103,20 +93,24 @@ const CoursesPage = async () => {
                       </p>
                     </div>
 
-                    <Link
-                      href={`/courses/${course._id.toString()}`}
-                      className="btn btn-primary rounded-full"
-                    >
-                      View Details
-                    </Link>
-                  </div>
+                    <div className="mt-5 flex gap-2">
+                      <Link
+                        href={`/courses/${course._id.toString()}`}
+                        className="btn btn-primary flex-1 rounded-full"
+                      >
+                        View Details
+                      </Link>
 
+                      <button className="btn btn-outline btn-primary flex-1 rounded-full">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         )}
-
       </section>
     </main>
   );
