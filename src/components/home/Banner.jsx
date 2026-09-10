@@ -64,7 +64,7 @@ const Banner = () => {
           <div className="relative flex justify-center md:justify-end">
             <div className="relative w-full max-w-lg">
               <Image
-                src="/assets/hero.png"
+                src="/assets/hero1.jpg"
                 alt="Online learning courses"
                 width={500}
                 height={400}
