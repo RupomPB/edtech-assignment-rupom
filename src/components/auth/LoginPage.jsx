@@ -4,11 +4,15 @@ import Link from "next/link";
 import { Mail, Lock } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import SocialButton from "./SocialButton";
 
 const LoginPage = () => {
+
+   const params = useSearchParams();
+      const callback=params.get("callbackUrl")|| "/";
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -28,7 +32,8 @@ const LoginPage = () => {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      // redirect: false,
+      callbackUrl: params.get("callbackUrl")|| "",
     });
 
     setLoading(false);
@@ -38,7 +43,7 @@ const LoginPage = () => {
       return;
     }
 
-    router.push("/");
+    
     router.refresh();
   };
 
@@ -164,7 +169,7 @@ const LoginPage = () => {
             </span>
 
             <Link
-              href="/register"
+              href={`/register?callbackUrl=${callback}`}
               className="font-bold text-primary hover:underline"
             >
               Create an account
