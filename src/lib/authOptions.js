@@ -2,6 +2,7 @@
 import { loginStudent } from "@/actions/server/auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
+import { collections, dbConnect } from "./dbConnect";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -53,4 +54,43 @@ export const authOptions = {
     },
   })
   ],
+
+
+  callbacks: {
+  async signIn({ user, account, profile, email, credentials }) {
+    console.log({ user, account, profile, email, credentials })
+
+    const isExist = await dbConnect(collections.STUDENTS).findOne({
+      email: user.email,
+      provider: account?.provider,
+    })
+    if(isExist){
+      return true
+    }
+
+
+const newStudent ={
+        provider: account?.provider,
+        name:user.name,
+        email:user.email,
+        image: user.image,
+        role: "student"
+    };
+
+    const result = await dbConnect(collections.STUDENTS).insertOne(newStudent);
+    return result.acknowledged;
+
+    
+  },
+  // async redirect({ url, baseUrl }) {
+  //   return baseUrl
+  // },
+  // async session({ session, token, user }) {
+  //   return session
+  // },
+  // async jwt({ token, user, account, profile, isNewUser }) {
+  //   return token
+  // }
+}
+
 }
