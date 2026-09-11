@@ -1,3 +1,7 @@
+
+import { loginStudent } from "@/actions/server/auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -10,9 +14,9 @@ export const authOptions = {
       password: { label: "Password", type: "password" }
     },
     async authorize(credentials, req) {
-      
-      
-      return null
+      const student = await loginStudent(credentials);
+      console.log(credentials)
+      return student;
     }
   })
     // ...add more providers here

@@ -49,3 +49,18 @@ const hashedPassword = await bcrypt.hash(password, 14);
   };
     
 }
+
+export const loginStudent = async (payload) => {
+  const {email, password} = payload;
+  if(!email|| !password) return null;
+
+  const student = await dbConnect(collections.STUDENTS).findOne({email});
+  if(!student) return null;
+
+  const isMatched = await bcrypt.compare(password, student.password);
+  if(isMatched){
+    return student;
+  }else{
+    return null;
+  }
+}
