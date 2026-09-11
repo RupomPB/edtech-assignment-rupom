@@ -6,6 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import SocialButton from "./SocialButton";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -154,14 +155,7 @@ const LoginPage = () => {
           </div>
 
           {/* Google Login */}
-          <button
-            type="button"
-            className="btn btn-outline w-full rounded-xl"
-          >
-            <FaGoogle size={18} />
-
-            Continue with Google
-          </button>
+          <SocialButton></SocialButton>
 
           {/* Register */}
           <div className="mt-7 text-center text-sm">
