@@ -1,12 +1,16 @@
+"use client"
+
 import React from 'react';
 import Logo from './Logo';
 import NavLink from '../buttons/NavLink';
 import Link from 'next/link';
 import { FiShoppingCart } from 'react-icons/fi';
 import AuthButtons from '../buttons/AuthButtons';
+import { useCart } from '@/context/CartContext';
 
 const Navbar = () => {
-  
+
+  const {cartItems} = useCart();
 
   const nav=(
     <>
@@ -47,9 +51,18 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end space-x-4">
-    <Link href={"/cart"} className='btn btn-primary'>
-      <FiShoppingCart></FiShoppingCart>
-    </Link>
+
+    {/* cart icon button */}
+
+    <Link href="/cart" className="btn btn-primary relative">
+  <FiShoppingCart />
+
+  {cartItems.length > 0 && (
+    <span className="badge badge-secondary absolute -right-4 -top-5">
+      {cartItems.length}
+    </span>
+  )}
+</Link>
     <AuthButtons></AuthButtons>
   </div>
 </div>
