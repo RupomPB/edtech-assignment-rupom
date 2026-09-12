@@ -112,7 +112,7 @@ const CoursesPage = async () => {
                         View Details
                       </Link>
 
-                      <CartButton course={course}></CartButton>
+                      <CartButton course={course} type="course"></CartButton>
                     </div>
                   </div>
                 </div>
@@ -222,7 +222,7 @@ const CoursesPage = async () => {
                       View Combo
                     </Link>
 
-                    <CartButton combo={combo}></CartButton>
+                    <CartButton type="combo" combo={combo}></CartButton>
                   </div>
                 </div>
               </article>

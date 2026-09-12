@@ -365,7 +365,7 @@ const CombosDetailsPage = async ({ params }) => {
               </div>
 
               {/* Action */}
-              <CartButton combo= {combo} ></CartButton>
+              <CartButton combo= {combo} type="combo" ></CartButton>
 
               <Link
                 href="/courses"
