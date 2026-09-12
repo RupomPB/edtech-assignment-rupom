@@ -1,95 +1,90 @@
-"use client"
+"use client";
 
-import { useSession } from 'next-auth/react';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
-export const CartProvider = ({children}) =>{
-    const {data: session} = useSession();
+export const CartProvider = ({ children }) => {
+  const { data: session } = useSession();
 
-    const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
-    // islogin user cart load 
-    useEffect(()=>{
-
-       if (!session?.user?.id) {
-      setCartItems([])
+  // islogin user cart load
+  useEffect(() => {
+    if (!session?.user?.id) {
+      setCartItems([]);
       return;
     }
 
-    const cartKey= `edtech-cart-${session.user.id}`;
+    const cartKey = `edtech-cart-${session.user.id}`;
 
     // localStorage
     const savedCart = localStorage.getItem(cartKey);
 
-    if(savedCart){
-        setCartItems(JSON.parse(savedCart));
-    }else{
-        setCartItems([]);
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    } else {
+      setCartItems([]);
     }
-    },[session]);
+  }, [session]);
 
-    // if cart change localstorage will save
-    useEffect(() => {
-    
-        if(!session?.user?.id) return;
+  // if cart change localstorage will save
+  useEffect(() => {
+    if (!session?.user?.id) return;
 
-        const cartKey =`edtech-cart-${session.user.id}`
+    const cartKey = `edtech-cart-${session.user.id}`;
 
     // set to localstorage
     localStorage.setItem(cartKey, JSON.stringify(cartItems));
+  }, [cartItems, session]);
 
-    }, [cartItems, session]);
+  // add item to cart
+  const addToCart = (item) => {
+    setCartItems((previousItems) => {
+      const alreadyExists = previousItems.some(
+        (cartItem) => cartItem.id === item.id && cartItem.type === item.type,
+      );
 
-    // add item to cart
-    const addToCart = (item)=>{
-        setCartItems((previousItems)=>{
-            const alreadyExists = previousItems.some(
-                (cartItem)=>
-                    cartItem.id === item.id && cartItem.type === item.type
-            );
+      if (alreadyExists) {
+        return previousItems;
+      }
+      return [...previousItems, item];
+    });
+  };
 
-            if(alreadyExists){
-                return previousItems
-            }
-            return [...previousItems, item];
-
-        });
-    };
-
-    // remove item from cart
-
-     const removeFromCart = (id, type) => {
+  // remove item from cart
+  const removeFromCart = (id, type) => {
     setCartItems((previousItems) => {
       return previousItems.filter(
-        (item) => !(item.id === id && item.type === type)
+        (item) => !(item.id === id && item.type === type),
       );
     });
   };
-    
-//   sum the price item 
-    const cartTotal = cartItems.reduce(
 
-        (total, item) =>total + item.price, 0
+  // clear all cart
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
-    );
+  //   sum the price item
+  const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
 
-    return (
-        <CartContext.Provider
-            value={{
-                cartItems,
-                addToCart,
-                removeFromCart,
-                cartTotal,
-            }}
-        >
-            {children}
-        </CartContext.Provider>
-    )
-
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        cartTotal,
+        clearCart,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
 
-export const useCart =()=>{
-    return useContext(CartContext);
-}
+export const useCart = () => {
+  return useContext(CartContext);
+};

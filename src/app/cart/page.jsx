@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import CheckoutButton from "@/components/buttons/CheckoutButton";
 
 const CartPage = () => {
   const { cartItems, removeFromCart, cartTotal } = useCart();
@@ -96,9 +97,7 @@ const CartPage = () => {
               <span>৳ {cartTotal}</span>
             </div>
 
-            <button className="btn btn-primary w-full mt-6">
-              Proceed to Checkout
-            </button>
+            <CheckoutButton></CheckoutButton>
 
           </div>
 
