@@ -1,19 +1,23 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const CartButton = ({ course, combo, type }) => {
-  const isLogin = false;
+  const { status } = useSession();
+
   const router = useRouter();
   const path = usePathname();
 
   const add2Cart = () => {
-    if (!isLogin) {
-      router.push(`/login?callbackUrl=${path}`);
-      return;
-    }
+    
+    if (status !== "authenticated") {
+    router.push(`/login?callbackUrl=${path}`);
+    return;
+  }
 
+   
     const item = course || combo;
 
     if (!item) {
