@@ -1,6 +1,5 @@
-
-import { loginStudent } from "@/actions/server/auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import { loginStudent } from "@/actions/server/auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { collections, dbConnect } from "./dbConnect";
 
@@ -44,53 +43,76 @@ export const authOptions = {
     }),
 
     GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 
-     authorization: {
-      params: {
-        prompt: "select_account",
+      authorization: {
+        params: {
+          prompt: "select_account",
+        },
       },
-    },
-  })
+    }),
   ],
 
-
   callbacks: {
-  async signIn({ user, account, profile, email, credentials }) {
-    console.log({ user, account, profile, email, credentials })
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log({ user, account, profile, email, credentials });
 
-    const isExist = await dbConnect(collections.STUDENTS).findOne({
-      email: user.email,
-      provider: account?.provider,
-    })
-    if(isExist){
-      return true
-    }
+      const isExist = await dbConnect(collections.STUDENTS).findOne({
+        email: user.email,
+        // provider: account?.provider,
+      });
+      if (isExist) {
+        return true;
+      }
 
-
-const newStudent ={
+      const newStudent = {
         provider: account?.provider,
-        name:user.name,
-        email:user.email,
+        name: user.name,
+        email: user.email,
         image: user.image,
-        role: "student"
-    };
+        role: "student",
+      };
 
-    const result = await dbConnect(collections.STUDENTS).insertOne(newStudent);
-    return result.acknowledged;
+      const result = await dbConnect(collections.STUDENTS).insertOne(
+        newStudent,
+      );
+      return result.acknowledged;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl
+    // },
+    async session({ session, token }) {
+  if (session.user) {
+    session.user.id = token?.id;
+    session.user.role = token?.role;
+    session.user.email = token?.email;
+  }
 
-    
+  console.log("this is callback session", session);
+
+  return session;
+},
+    async jwt({ token, user, account }) {
+  if (user) {
+    if (account?.provider === "google") {
+      const dbUser = await dbConnect(collections.STUDENTS).findOne({
+        email: user.email,
+      });
+
+      token.id = dbUser?._id?.toString();
+      token.role = dbUser?.role;
+      token.email = dbUser?.email;
+    } else {
+      token.id = user?.id;
+      token.role = user?.role;
+      token.email = user?.email;
+    }
+  }
+
+  console.log("this is callback jwt", token);
+
+  return token;
+},
   },
-  // async redirect({ url, baseUrl }) {
-  //   return baseUrl
-  // },
-  // async session({ session, token, user }) {
-  //   return session
-  // },
-  // async jwt({ token, user, account, profile, isNewUser }) {
-  //   return token
-  // }
-}
-
-}
+};

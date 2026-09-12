@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import SocialButton from "./SocialButton";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
 
@@ -19,34 +20,45 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setLoading(true);
-    setError("");
+  setLoading(true);
 
-    const form = e.target;
+  const form = e.target;
 
-    const email = form.email.value;
-    const password = form.password.value;
+  const email = form.email.value.trim();
+  const password = form.password.value;
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      // redirect: false,
-      callbackUrl: params.get("callbackUrl")|| "",
+  const result = await signIn("credentials", {
+    email,
+    password,
+    redirect: false,
+    callbackUrl: callback,
+  });
+
+  setLoading(false);
+
+  if (!result?.ok) {
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: "Email or password is incorrect... or try to Google or Register",
+      confirmButtonText: "Try Again",
     });
 
-    setLoading(false);
+    return;
+  }
 
-    if (result?.error) {
-      setError("Invalid email or password");
-      return;
-    }
+  await Swal.fire({
+    icon: "success",
+    title: "Welcome Back!",
+    text: "You have logged in successfully.",
+    confirmButtonText: "Continue",
+  });
 
-    
-    router.refresh();
-  };
-
+  router.push(callback);
+  router.refresh();
+};
   return (
     <main className="min-h-screen bg-base-200 px-4 py-10">
       <div className="mx-auto flex min-h-[80vh] max-w-md items-center justify-center">

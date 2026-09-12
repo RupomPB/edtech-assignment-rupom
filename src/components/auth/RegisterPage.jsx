@@ -5,41 +5,57 @@ import { User, Mail, Lock } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { postStudent } from "@/actions/server/auth";
 import { useRouter } from "next/navigation";
+import SocialButton from "./SocialButton";
+import Swal from "sweetalert2";
 
 const RegisterPage = () => {
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
+  const name = form.name.value;
+  const email = form.email.value;
+  const password = form.password.value;
+  const confirmPassword = form.confirmPassword.value;
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  if (password !== confirmPassword) {
+    Swal.fire({
+      icon: "error",
+      title: "Passwords do not match",
+      text: "Please enter the same password in both fields.",
+    });
+    return;
+  }
 
-    const userData = {
-      name,
-      email,
-      password,
-    };
-
-    const result = await postStudent(userData);
-
-    if (result.success) {
-      alert("Successful, now please login");
-      router.push("/login");
-      return;
-    }
-
-    alert(result.message);
+  const userData = {
+    name,
+    email,
+    password,
   };
+
+  const result = await postStudent(userData);
+
+  if (result.success) {
+    await Swal.fire({
+      icon: "success",
+      title: "Registration Successful!",
+      text: "Your account has been created. Now please login.",
+      confirmButtonText: "Go to Login",
+    });
+
+    router.push("/login");
+    return;
+  }
+
+  Swal.fire({
+    icon: "error",
+    title: "Registration Failed",
+    text: result.message,
+  });
+};
 
   return (
     <main className="min-h-screen bg-base-200 px-4 py-10">
@@ -168,13 +184,7 @@ const RegisterPage = () => {
             <div className="h-px flex-1 bg-base-300" />
           </div>
 
-          <button
-            type="button"
-            className="btn btn-outline w-full rounded-xl"
-          >
-            <FaGoogle size={18} />
-            Continue with Google
-          </button>
+          <SocialButton></SocialButton>
 
           <div className="mt-7 text-center text-sm">
             <span className="text-base-content/60">
