@@ -1,12 +1,18 @@
-import { requireRole } from "@/lib/authGuard";
+import { getCurrentUser, requireRole } from "@/lib/authGuard";
 import { redirect } from "next/navigation";
 import { getPurchasesByStudent } from "@/actions/server/purchase";
 
 const DashboardPage = async () => {
   const user = await requireRole("student");
 
-  if (!user) {
+   const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
     redirect("/login");
+  }
+
+  if (currentUser.role !== "student") {
+    redirect("/forbidden");
   }
 
   const purchases = await getPurchasesByStudent(user.id);

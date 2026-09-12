@@ -1,32 +1,32 @@
-import { requireRole } from "@/lib/authGuard";
+import { getCurrentUser, requireRole } from "@/lib/authGuard";
 import { getAllPurchases } from "@/actions/server/purchase";
 import { redirect } from "next/navigation";
 
 const AdminPage = async () => {
   const user = await requireRole("admin");
 
-  if (!user) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
     redirect("/login");
+  }
+
+  if (currentUser.role !== "admin") {
+    redirect("/forbidden");
   }
 
   const purchases = await getAllPurchases();
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold">
-        Admin Dashboard
-      </h1>
+      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
-      <p className="mt-2 text-gray-500">
-        Manage student purchase requests
-      </p>
+      <p className="mt-2 text-gray-500">Manage student purchase requests</p>
 
       <div className="mt-8 space-y-5">
         {purchases.length === 0 ? (
           <div className="rounded-xl border p-8 text-center">
-            <p className="text-gray-500">
-              No purchase requests found.
-            </p>
+            <p className="text-gray-500">No purchase requests found.</p>
           </div>
         ) : (
           purchases.map((purchase) => (
@@ -37,13 +37,9 @@ const AdminPage = async () => {
               {/* Student Information */}
               <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">
-                    Student
-                  </p>
+                  <p className="text-sm text-gray-500">Student</p>
 
-                  <p className="font-semibold">
-                    {purchase.studentEmail}
-                  </p>
+                  <p className="font-semibold">{purchase.studentEmail}</p>
 
                   <p className="text-sm text-gray-500">
                     ID: {purchase.studentId}
@@ -61,9 +57,7 @@ const AdminPage = async () => {
 
               {/* Purchased Items */}
               <div>
-                <h2 className="mb-3 font-semibold">
-                  Purchased Items
-                </h2>
+                <h2 className="mb-3 font-semibold">Purchased Items</h2>
 
                 <div className="space-y-3">
                   {purchase.items.map((item) => (
@@ -72,18 +66,14 @@ const AdminPage = async () => {
                       className="flex items-center justify-between rounded-lg bg-base-200 p-3"
                     >
                       <div>
-                        <p className="font-medium">
-                          {item.title}
-                        </p>
+                        <p className="font-medium">{item.title}</p>
 
                         <p className="text-sm text-gray-500 capitalize">
                           {item.type || "Course"}
                         </p>
                       </div>
 
-                      <p className="font-semibold">
-                        ৳ {item.price}
-                      </p>
+                      <p className="font-semibold">৳ {item.price}</p>
                     </div>
                   ))}
                 </div>
@@ -94,15 +84,9 @@ const AdminPage = async () => {
               {/* Total + Date */}
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">
-                    Purchase Date
-                  </p>
+                  <p className="text-sm text-gray-500">Purchase Date</p>
 
-                  <p>
-                    {new Date(
-                      purchase.createdAt
-                    ).toLocaleDateString()}
-                  </p>
+                  <p>{new Date(purchase.createdAt).toLocaleDateString()}</p>
                 </div>
 
                 <div className="text-lg font-bold">
@@ -112,29 +96,19 @@ const AdminPage = async () => {
 
               {/* Status */}
               <div className="mt-5">
-                <label className="mb-2 block font-medium">
-                  Update Status
-                </label>
+                <label className="mb-2 block font-medium">Update Status</label>
 
                 <select
                   defaultValue={purchase.status}
                   className="select select-bordered w-full max-w-xs"
                 >
-                  <option value="pending">
-                    Pending
-                  </option>
+                  <option value="pending">Pending</option>
 
-                  <option value="processing">
-                    Processing
-                  </option>
+                  <option value="processing">Processing</option>
 
-                  <option value="delivered">
-                    Delivered
-                  </option>
+                  <option value="delivered">Delivered</option>
 
-                  <option value="cancelled">
-                    Cancelled
-                  </option>
+                  <option value="cancelled">Cancelled</option>
                 </select>
               </div>
             </div>
