@@ -4,11 +4,18 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
+import { useCart } from "@/context/CartContext";
+
+
 const CartButton = ({ course, combo, type }) => {
   const { status } = useSession();
 
   const router = useRouter();
   const path = usePathname();
+
+  // cart context
+  const {cartItems} = useCart();
+  console.log("Cart:", cartItems);
 
   const add2Cart = () => {
     
