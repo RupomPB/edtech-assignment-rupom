@@ -25,9 +25,20 @@ export const createPurchase = async (purchaseData) => {
 
 };
 
+// for student 
 export const getPurchasesByStudent = async (studentId) => {
   const purchases = await dbConnect(collections.PURCHASES)
     .find({ studentId })
+    .sort({ createdAt: -1 })
+    .toArray();
+
+  return purchases;
+};
+
+// for admin
+export const getAllPurchases = async () => {
+  const purchases = await dbConnect(collections.PURCHASES)
+    .find({})
     .sort({ createdAt: -1 })
     .toArray();
 
