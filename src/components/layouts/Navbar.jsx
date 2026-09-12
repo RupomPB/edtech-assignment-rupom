@@ -6,6 +6,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import AuthButtons from '../buttons/AuthButtons';
 
 const Navbar = () => {
+  
 
   const nav=(
     <>

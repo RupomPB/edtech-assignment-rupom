@@ -3,28 +3,21 @@
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-
 import { useCart } from "@/context/CartContext";
-
 
 const CartButton = ({ course, combo, type }) => {
   const { status } = useSession();
+  const { addToCart } = useCart();
 
   const router = useRouter();
   const path = usePathname();
 
-  // cart context
-  const {cartItems} = useCart();
-  console.log("Cart:", cartItems);
-
   const add2Cart = () => {
-    
     if (status !== "authenticated") {
-    router.push(`/login?callbackUrl=${path}`);
-    return;
-  }
+      router.push(`/login?callbackUrl=${path}`);
+      return;
+    }
 
-   
     const item = course || combo;
 
     if (!item) {
@@ -32,9 +25,17 @@ const CartButton = ({ course, combo, type }) => {
       return;
     }
 
-    const productId = item._id.toString();
+    const cartItem = {
+      id: item._id.toString(),
+      type: type,
+      title: item.title,
+      thumbnail: item.thumbnail,
+      price: item.price,
+    };
 
-    alert(`Added to cart!\nID: ${productId}\nType: ${type}`);
+    addToCart(cartItem);
+
+    alert("Added to cart!");
   };
 
   return (

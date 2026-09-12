@@ -58,13 +58,30 @@ export const CartProvider = ({children}) =>{
         });
     };
 
+    // remove item from cart
+
+     const removeFromCart = (id, type) => {
+    setCartItems((previousItems) => {
+      return previousItems.filter(
+        (item) => !(item.id === id && item.type === type)
+      );
+    });
+  };
     
-    
+//   sum the price item 
+    const cartTotal = cartItems.reduce(
+
+        (total, item) =>total + item.price, 0
+
+    );
 
     return (
         <CartContext.Provider
             value={{
                 cartItems,
+                addToCart,
+                removeFromCart,
+                cartTotal,
             }}
         >
             {children}
