@@ -38,7 +38,12 @@ export const authOptions = {
           return null;
         }
 
-        return student;
+        return {
+          id: student._id.toString(),
+          name: student.name,
+          email: student.email,
+          role: student.role,
+        };
       },
     }),
 
@@ -83,36 +88,36 @@ export const authOptions = {
     //   return baseUrl
     // },
     async session({ session, token }) {
-  if (session.user) {
-    session.user.id = token?.id;
-    session.user.role = token?.role;
-    session.user.email = token?.email;
-  }
+      if (session.user) {
+        session.user.id = token?.id;
+        session.user.role = token?.role;
+        session.user.email = token?.email;
+      }
 
-  console.log("this is callback session", session);
+      console.log("this is callback session", session);
 
-  return session;
-},
+      return session;
+    },
     async jwt({ token, user, account }) {
-  if (user) {
-    if (account?.provider === "google") {
-      const dbUser = await dbConnect(collections.STUDENTS).findOne({
-        email: user.email,
-      });
+      if (user) {
+        if (account?.provider === "google") {
+          const dbUser = await dbConnect(collections.STUDENTS).findOne({
+            email: user.email,
+          });
 
-      token.id = dbUser?._id?.toString();
-      token.role = dbUser?.role;
-      token.email = dbUser?.email;
-    } else {
-      token.id = user?.id;
-      token.role = user?.role;
-      token.email = user?.email;
-    }
-  }
+          token.id = dbUser?._id?.toString();
+          token.role = dbUser?.role;
+          token.email = dbUser?.email;
+        } else {
+          token.id = user?.id;
+          token.role = user?.role;
+          token.email = user?.email;
+        }
+      }
 
-  console.log("this is callback jwt", token);
+      console.log("this is callback jwt", token);
 
-  return token;
-},
+      return token;
+    },
   },
 };
