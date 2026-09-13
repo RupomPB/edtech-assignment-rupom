@@ -17,6 +17,12 @@ const CheckoutButton = () => {
       return;
     }
 
+    // protection for admin role (only student can make purchase)
+    if (session.user.role !== "student") {
+      router.push("/forbidden");
+      return;
+    }
+
     if (cartItems.length === 0) {
       alert("Your cart is empty");
       return;
@@ -45,10 +51,7 @@ const CheckoutButton = () => {
   };
 
   return (
-    <button
-      onClick={handleCheckout}
-      className="btn btn-primary w-full"
-    >
+    <button onClick={handleCheckout} className="btn btn-primary w-full">
       Proceed to Checkout
     </button>
   );
