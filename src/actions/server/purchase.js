@@ -70,6 +70,61 @@ export const getAllPurchases = async () => {
 
 // for status update logic 
 export const updatedPurchaseStatus = async (purchaseId,status)=>{
+
+  // check security for admin role only from server action
+
+  const user = await  getCurrentUser();
+
+  console.log("purchase status update request ", {
+    userId: user?.id,
+    role: user?.role,
+    purchaseId,
+    status
+  });
+
+  // check are user login
+  if(!user){
+    return{
+      success: false,
+      message: "You must be logged in",
+    }
+  }
+
+  // only admin can update status
+
+  if(user.role !== "admin"){
+    return{
+      success: false,
+      message: "Only admin can update purchase status"
+    }
+  }
+
+  // allowed statuses
+
+  const allowedStatuses =[
+    "pending",
+    "processing",
+    "delivered",
+    "cancelled"
+  ];
+
+  if (!allowedStatuses.includes(status)) {
+    return {
+      success: false,
+      message: "Invalid purchase status",
+    };
+  }
+
+  // check valid Mongodb opjectid
+  if(!ObjectId.isValid(purchaseId)){
+    return{
+      success: false,
+      message: "Invalid purchase ID"
+    }
+  }
+
+
+
   const result = await dbConnect(collections.PURCHASES).updateOne(
     {
       _id: new ObjectId(purchaseId)
@@ -79,7 +134,14 @@ export const updatedPurchaseStatus = async (purchaseId,status)=>{
         status: status,
       },
     }
-  )
+  );
+
+  console.log("Purchase status update result ",{
+    acknowledged: result.acknowledged,
+    matchedCount: result.matchedCount,
+    modifiedCount: result.modifiedCount,
+  });
+  
 
   if(!result.acknowledged){
     return{

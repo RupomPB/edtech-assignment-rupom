@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getPurchasesByStudent } from "@/actions/server/purchase";
 import ProfileEdit from "@/components/dashboard/ProfileEdit";
 
+
 const DashboardPage = async () => {
   const user = await requireRole("student");
 
@@ -41,6 +42,8 @@ const DashboardPage = async () => {
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">Student Dashboard</h1>
 
+        
+
       {/* Profile */}
       <ProfileEdit user={user}></ProfileEdit>
 
@@ -59,6 +62,7 @@ const DashboardPage = async () => {
                 key={purchase._id.toString()}
                 className="rounded-xl border p-6"
               >
+         
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm text-gray-500">Purchase ID</p>

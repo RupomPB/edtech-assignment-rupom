@@ -3,6 +3,7 @@ import { getAllPurchases } from "@/actions/server/purchase";
 import { redirect } from "next/navigation";
 import PurchaseStatus from "@/components/admin/PurchaseStatus";
 
+
 const AdminPage = async () => {
 
   const currentUser = await getCurrentUser();
@@ -42,6 +43,8 @@ const AdminPage = async () => {
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
       {/* daynamic card UI */}
+
+     
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <div className="rounded-xl border p-5 shadow-sm">
@@ -93,6 +96,7 @@ const AdminPage = async () => {
             >
               {/* Student Information */}
               <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              
                 <div>
                   <p className="text-sm text-gray-500">Student</p>
 
