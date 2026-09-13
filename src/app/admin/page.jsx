@@ -1,10 +1,9 @@
-import { getCurrentUser, requireRole } from "@/lib/authGuard";
+import { getCurrentUser } from "@/lib/authGuard";
 import { getAllPurchases } from "@/actions/server/purchase";
 import { redirect } from "next/navigation";
 import PurchaseStatus from "@/components/admin/PurchaseStatus";
 
 const AdminPage = async () => {
-  const user = await requireRole("admin");
 
   const currentUser = await getCurrentUser();
 
@@ -18,9 +17,66 @@ const AdminPage = async () => {
 
   const purchases = await getAllPurchases();
 
+  // dynamic card function
+
+  const totalPurchases = purchases.length;
+
+  const pendingPurchases = purchases.filter(
+    (purchase) => purchase.status === "pending",
+  ).length;
+
+  const processingPurchases = purchases.filter(
+    (purchase) => purchase.status === "processing",
+  ).length;
+
+  const deliveredPurchases = purchases.filter(
+    (purchase) => purchase.status === "delivered",
+  ).length;
+
+  const cancelledPurchases = purchases.filter(
+    (purchase) => purchase.status === "cancelled",
+  ).length;
+
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+
+      {/* daynamic card UI */}
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="rounded-xl border p-5 shadow-sm">
+          <p className="text-sm text-gray-500">Total Purchases</p>
+          <h2 className="mt-2 text-3xl font-bold">{totalPurchases}</h2>
+        </div>
+
+        <div className="rounded-xl border p-5 shadow-sm">
+          <p className="text-sm text-gray-500">Pending</p>
+          <h2 className="mt-2 text-3xl font-bold text-warning">
+            {pendingPurchases}
+          </h2>
+        </div>
+
+        <div className="rounded-xl border p-5 shadow-sm">
+          <p className="text-sm text-gray-500">Processing</p>
+          <h2 className="mt-2 text-3xl font-bold text-info">
+            {processingPurchases}
+          </h2>
+        </div>
+
+        <div className="rounded-xl border p-5 shadow-sm">
+          <p className="text-sm text-gray-500">Delivered</p>
+          <h2 className="mt-2 text-3xl font-bold text-success">
+            {deliveredPurchases}
+          </h2>
+        </div>
+
+        <div className="rounded-xl border p-5 shadow-sm">
+          <p className="text-sm text-gray-500">Cancelled</p>
+          <h2 className="mt-2 text-3xl font-bold text-error">
+            {cancelledPurchases}
+          </h2>
+        </div>
+      </div>
 
       <p className="mt-2 text-gray-500">Manage student purchase requests</p>
 
@@ -100,8 +156,8 @@ const AdminPage = async () => {
                 <label className="mb-2 block font-medium">Update Status</label>
 
                 <PurchaseStatus
-                purchaseId={purchase._id.toString()}
-                currentStatus={purchase.status}
+                  purchaseId={purchase._id.toString()}
+                  currentStatus={purchase.status}
                 ></PurchaseStatus>
               </div>
             </div>
