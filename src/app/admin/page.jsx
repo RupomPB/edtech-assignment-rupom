@@ -47,11 +47,11 @@ const AdminPage = async () => {
                   </p>
                 </div>
 
-                <div>
+                {/* <div>
                   <span className="badge badge-warning capitalize">
                     {purchase.status}
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <div className="divider"></div>

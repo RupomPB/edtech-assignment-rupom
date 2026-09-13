@@ -1,49 +1,71 @@
-"use client"
+"use client";
 
-import { updatedPurchaseStatus } from "@/actions/server/purchase";
 import { useState } from "react";
+import { updatedPurchaseStatus,  } from "@/actions/server/purchase";
 
-const PurchaseStatus =({currentStatus,purchaseId})=>{
-   const [status, setStatus] = useState(currentStatus);
+const PurchaseStatus = ({ purchaseId, currentStatus }) => {
+  const [status, setStatus] = useState(currentStatus);
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "pending":
+        return "badge-warning";
 
-   const handleStatusChange = async (event)=>{
+      case "processing":
+        return "badge-info";
+
+      case "delivered":
+        return "badge-success";
+
+      case "cancelled":
+        return "badge-error";
+
+      default:
+        return "badge-neutral";
+    }
+  };
+
+  const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
 
     setStatus(newStatus);
 
     const result = await updatedPurchaseStatus(
-        purchaseId, 
-        newStatus
-    )
+      purchaseId,
+      newStatus
+    );
 
-    if(!result.success){
-        alert(result.messege);
-        setStatus(currentStatus)
-        return;
+    if (!result.success) {
+      alert(result.message);
+      setStatus(currentStatus);
+      return;
     }
 
     alert("Purchase status updated");
-
-   }
-   
-   
-
+  };
 
   return (
-    <select
-      value={status}
-      onChange={handleStatusChange}
-      className="select select-bordered w-full max-w-xs"
-    >
-      <option value="pending">Pending</option>
-      <option value="processing">Processing</option>
-      <option value="delivered">Delivered</option>
-      <option value="cancelled">Cancelled</option>
-    </select>
+    <div className="flex flex-wrap items-center gap-3">
+      {/* Current Status */}
+      <span
+        className={`badge ${getStatusClass(status)} capitalize`}
+      >
+        {status}
+      </span>
+
+      {/* Update Status */}
+      <select
+        value={status}
+        onChange={handleStatusChange}
+        className="select select-bordered w-full max-w-xs"
+      >
+        <option value="pending">Pending</option>
+        <option value="processing">Processing</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
   );
+};
 
-
-
-}
 export default PurchaseStatus;
