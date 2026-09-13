@@ -61,7 +61,7 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log({ user, account, profile, email, credentials });
+      // console.log({ user, account, profile, email, credentials });
 
       const isExist = await dbConnect(collections.STUDENTS).findOne({
         email: user.email,
@@ -87,18 +87,21 @@ export const authOptions = {
     // async redirect({ url, baseUrl }) {
     //   return baseUrl
     // },
+
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token?.id;
         session.user.role = token?.role;
         session.user.email = token?.email;
+        session.user.name = token?.name;
       }
 
       console.log("this is callback session", session);
 
       return session;
     },
-    async jwt({ token, user, account }) {
+
+    async jwt({ token, user, account, trigger, session }) {
       if (user) {
         if (account?.provider === "google") {
           const dbUser = await dbConnect(collections.STUDENTS).findOne({
@@ -108,11 +111,18 @@ export const authOptions = {
           token.id = dbUser?._id?.toString();
           token.role = dbUser?.role;
           token.email = dbUser?.email;
+          token.name = dbUser?.name;
         } else {
           token.id = user?.id;
           token.role = user?.role;
           token.email = user?.email;
+          token.name = user?.name;
         }
+      }
+
+      // Profile update
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
       }
 
       console.log("this is callback jwt", token);

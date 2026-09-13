@@ -5,13 +5,13 @@ import { updateStudentProfile } from "@/actions/server/auth";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-
 const ProfileEdit = ({ user }) => {
   const [name, setName] = useState(user.name || "");
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const { update } = useSession();
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -23,10 +23,7 @@ const ProfileEdit = ({ user }) => {
 
     setLoading(true);
 
-    const result = await updateStudentProfile(
-      user.id,
-      name
-    );
+    const result = await updateStudentProfile(user.id, name);
 
     setLoading(false);
 
@@ -34,6 +31,11 @@ const ProfileEdit = ({ user }) => {
       alert(result.message);
       return;
     }
+    
+  // Update NextAuth session
+    await update({
+      name: name.trim(),
+    });
 
     alert("Profile updated successfully");
 
@@ -47,9 +49,7 @@ const ProfileEdit = ({ user }) => {
       <div className="mt-6 rounded-xl border p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold">
-              My Profile
-            </h2>
+            <h2 className="text-xl font-semibold">My Profile</h2>
 
             <div className="mt-4 space-y-2">
               <p>
@@ -62,17 +62,12 @@ const ProfileEdit = ({ user }) => {
 
               <p>
                 <strong>Role:</strong>{" "}
-                <span className="capitalize">
-                  {user.role}
-                </span>
+                <span className="capitalize">{user.role}</span>
               </p>
             </div>
           </div>
 
-          <button
-            onClick={() => setEditing(true)}
-            className="btn btn-primary"
-          >
+          <button onClick={() => setEditing(true)} className="btn btn-primary">
             Edit Profile
           </button>
         </div>
@@ -82,34 +77,23 @@ const ProfileEdit = ({ user }) => {
 
   return (
     <div className="mt-6 rounded-xl border p-6">
-      <h2 className="text-xl font-semibold">
-        Edit Profile
-      </h2>
+      <h2 className="text-xl font-semibold">Edit Profile</h2>
 
-      <form
-        onSubmit={handleUpdate}
-        className="mt-5 space-y-4"
-      >
+      <form onSubmit={handleUpdate} className="mt-5 space-y-4">
         <div>
-          <label className="mb-2 block font-medium">
-            Name
-          </label>
+          <label className="mb-2 block font-medium">Name</label>
 
           <input
             type="text"
             value={name}
-            onChange={(event) =>
-              setName(event.target.value)
-            }
+            onChange={(event) => setName(event.target.value)}
             className="input input-bordered w-full"
             placeholder="Enter your name"
           />
         </div>
 
         <div>
-          <label className="mb-2 block font-medium">
-            Email
-          </label>
+          <label className="mb-2 block font-medium">Email</label>
 
           <input
             type="email"
@@ -120,11 +104,7 @@ const ProfileEdit = ({ user }) => {
         </div>
 
         <div className="flex gap-3">
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn btn-primary"
-          >
+          <button type="submit" disabled={loading} className="btn btn-primary">
             {loading ? "Updating..." : "Save Changes"}
           </button>
 
