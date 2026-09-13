@@ -1,8 +1,29 @@
 "use server";
 
+import { getCurrentUser } from "@/lib/authGuard";
 import { collections, dbConnect } from "@/lib/dbConnect";
 
 export const createPurchase = async (purchaseData) => {
+
+  // logic that only student can make purchase 
+  const user = await getCurrentUser();
+
+  if (!user){
+    return{
+      success: false,
+      messege:"You must be logged in"
+    }
+  }
+
+  if(user.role !== "student"){
+    return{
+      success: false,
+      messege: "Only students can make purchases"
+    }
+  }
+
+
+
   const result = await dbConnect(collections.PURCHASES).insertOne(
     purchaseData
   );
