@@ -2,6 +2,7 @@
 
 import { getCurrentUser } from "@/lib/authGuard";
 import { collections, dbConnect } from "@/lib/dbConnect";
+import { ObjectId } from "mongodb";
 
 export const createPurchase = async (purchaseData) => {
 
@@ -65,3 +66,31 @@ export const getAllPurchases = async () => {
 
   return purchases;
 };
+
+
+// for status update logic 
+export const updatedPurchaseStatus = async (purchaseId,status)=>{
+  const result = await dbConnect(collections.PURCHASES).updateOne(
+    {
+      _id: new ObjectId(purchaseId)
+    },
+    {
+      $set:{
+        status: status,
+      },
+    }
+  )
+
+  if(!result.acknowledged){
+    return{
+      success: false,
+      messege: "Failed to update purchase status"
+    };
+  }
+
+  return{
+    success: true,
+    messege: "purchase status Updated"
+  }
+
+}

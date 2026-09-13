@@ -1,6 +1,7 @@
 import { getCurrentUser, requireRole } from "@/lib/authGuard";
 import { getAllPurchases } from "@/actions/server/purchase";
 import { redirect } from "next/navigation";
+import PurchaseStatus from "@/components/admin/PurchaseStatus";
 
 const AdminPage = async () => {
   const user = await requireRole("admin");
@@ -98,18 +99,10 @@ const AdminPage = async () => {
               <div className="mt-5">
                 <label className="mb-2 block font-medium">Update Status</label>
 
-                <select
-                  defaultValue={purchase.status}
-                  className="select select-bordered w-full max-w-xs"
-                >
-                  <option value="pending">Pending</option>
-
-                  <option value="processing">Processing</option>
-
-                  <option value="delivered">Delivered</option>
-
-                  <option value="cancelled">Cancelled</option>
-                </select>
+                <PurchaseStatus
+                purchaseId={purchase._id.toString()}
+                currentStatus={purchase.status}
+                ></PurchaseStatus>
               </div>
             </div>
           ))
