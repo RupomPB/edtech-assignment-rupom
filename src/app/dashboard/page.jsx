@@ -1,6 +1,7 @@
 import { getCurrentUser, requireRole } from "@/lib/authGuard";
 import { redirect } from "next/navigation";
 import { getPurchasesByStudent } from "@/actions/server/purchase";
+import ProfileEdit from "@/components/dashboard/ProfileEdit";
 
 const DashboardPage = async () => {
   const user = await requireRole("student");
@@ -41,21 +42,7 @@ const DashboardPage = async () => {
       <h1 className="text-3xl font-bold">Student Dashboard</h1>
 
       {/* Profile */}
-      <div className="mt-6 rounded-xl border p-6">
-        <h2 className="mb-4 text-xl font-semibold">Profile</h2>
-
-        <p>
-          <strong>Name:</strong> {user.name}
-        </p>
-
-        <p>
-          <strong>Email:</strong> {user.email}
-        </p>
-
-        <p>
-          <strong>Role:</strong> {user.role}
-        </p>
-      </div>
+      <ProfileEdit user={user}></ProfileEdit>
 
       {/* Purchases */}
       <div className="mt-8">
