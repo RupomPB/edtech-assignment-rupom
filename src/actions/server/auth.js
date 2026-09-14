@@ -3,6 +3,7 @@
 import { collections, dbConnect } from "@/lib/dbConnect";
 import bcrypt from "bcryptjs";
 import { ObjectId } from "mongodb";
+import { getCurrentUser } from "@/lib/authGuard";
 
 export const postStudent = async (payload) => {
   const { email, password, name } = payload;
@@ -65,17 +66,37 @@ export const loginStudent = async (payload) => {
 
 // update profile logic
 
-export const updateStudentProfile = async (studentId, name) => {
-  if (!studentId || !name?.trim()) {
-    return {
+export const updateStudentProfile = async ( name) => {
+
+  const user = await getCurrentUser();
+
+  if(!user){
+    return{
+      success: false,
+      message: "You must be logged in"
+    }
+  }
+
+  if(user.role !== "student"){
+    return{
+      success: false,
+      message: "Only students can update profile",
+    }
+  }
+
+  if(!name?.trim()){
+    return{
       success: false,
       message: "Name is required",
-    };
+    }
   }
+
+
+
 
   const result = await dbConnect(collections.STUDENTS).updateOne(
     {
-      _id: new ObjectId(studentId),
+      _id: new ObjectId(user.id),
     },
     {
       $set: {

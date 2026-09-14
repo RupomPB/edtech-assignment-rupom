@@ -23,7 +23,7 @@ const ProfileEdit = ({ user }) => {
 
     setLoading(true);
 
-    const result = await updateStudentProfile(user.id, name);
+    const result = await updateStudentProfile( name);
 
     setLoading(false);
 

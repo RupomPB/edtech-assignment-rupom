@@ -45,7 +45,7 @@ const PurchaseStatus = ({ purchaseId, currentStatus }) => {
       }
       alert("Purchase status updated");
 
-      // For updated MongoDB data for ui 
+      // For updated MongoDB data status update imediately in ui
       router.refresh(); 
 
     } catch (error) {
