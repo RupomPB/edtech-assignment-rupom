@@ -386,6 +386,7 @@ GitHub:
 https://github.com/RupomPB/edtech-assignment-rupom.git
 
 ## Author
-**Rupom PB**
+#**Rupom PB**
+
 GitHub: https://github.com/RupomPB
 LinkedIn: https://www.linkedin.com/in/rupom-pb/

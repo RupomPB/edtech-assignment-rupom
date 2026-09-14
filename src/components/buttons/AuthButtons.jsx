@@ -8,7 +8,9 @@ const AuthButtons = () => {
 
   if (session.status === "loading") {
     return (
-      <span className="loading loading-spinner loading-sm"></span>
+      <div className="flex items-center justify-center px-2">
+        <span className="loading loading-spinner loading-sm text-primary"></span>
+      </div>
     );
   }
 
@@ -17,14 +19,45 @@ const AuthButtons = () => {
       {session.status === "authenticated" ? (
         <button
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="btn btn-primary"
+          className="
+            btn
+            btn-sm
+            rounded-full
+            border-0
+            bg-gradient-to-r
+            from-primary
+            to-secondary
+            px-5
+            text-primary-content
+            shadow-sm
+            transition-all
+            duration-300
+            hover:-translate-y-0.5
+            hover:shadow-lg
+            hover:shadow-primary/20
+          "
         >
           Logout
         </button>
       ) : (
         <Link
           href="/login"
-          className="btn btn-primary btn-outline"
+          className="
+            btn
+            btn-sm
+            rounded-full
+            border-primary/30
+            bg-primary/5
+            px-5
+            text-primary
+            transition-all
+            duration-300
+            hover:border-primary
+            hover:bg-primary
+            hover:text-primary-content
+            hover:shadow-md
+            hover:shadow-primary/20
+          "
         >
           Login
         </Link>

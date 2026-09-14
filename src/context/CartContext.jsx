@@ -1,54 +1,56 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
-  const { data: session } = useSession();
-
-  const [cartItems, setCartItems] = useState([]);
-
-  // islogin user cart load
-  useEffect(() => {
-    if (!session?.user?.id) {
-      setCartItems([]);
-      return;
+const CartStateProvider = ({ children, userId }) => {
+  const [cartItems, setCartItems] = useState(() => {
+    if (!userId || typeof window === "undefined") {
+      return [];
     }
 
-    const cartKey = `edtech-cart-${session.user.id}`;
-
-    // localStorage
+    const cartKey = `edtech-cart-${userId}`;
     const savedCart = localStorage.getItem(cartKey);
 
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
-    } else {
-      setCartItems([]);
+    if (!savedCart) {
+      return [];
     }
-  }, [session]);
 
-  // if cart change localstorage will save
+    try {
+      return JSON.parse(savedCart);
+    } catch {
+      return [];
+    }
+  });
+
+  // cart change হলে localStorage-এ save হবে
   useEffect(() => {
-    if (!session?.user?.id) return;
+    if (!userId) return;
 
-    const cartKey = `edtech-cart-${session.user.id}`;
+    const cartKey = `edtech-cart-${userId}`;
 
-    // set to localstorage
     localStorage.setItem(cartKey, JSON.stringify(cartItems));
-  }, [cartItems, session]);
+  }, [cartItems, userId]);
 
   // add item to cart
   const addToCart = (item) => {
     setCartItems((previousItems) => {
       const alreadyExists = previousItems.some(
-        (cartItem) => cartItem.id === item.id && cartItem.type === item.type,
+        (cartItem) =>
+          cartItem.id === item.id && cartItem.type === item.type,
       );
 
       if (alreadyExists) {
         return previousItems;
       }
+
       return [...previousItems, item];
     });
   };
@@ -67,8 +69,11 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
-  //   sum the price item
-  const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
+  // total price
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.price,
+    0,
+  );
 
   return (
     <CartContext.Provider
@@ -82,6 +87,18 @@ export const CartProvider = ({ children }) => {
     >
       {children}
     </CartContext.Provider>
+  );
+};
+
+export const CartProvider = ({ children }) => {
+  const { data: session } = useSession();
+
+  const userId = session?.user?.id;
+
+  return (
+    <CartStateProvider key={userId || "guest"} userId={userId}>
+      {children}
+    </CartStateProvider>
   );
 };
 
