@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const CheckoutButton = () => {
   const { data: session } = useSession();
-  const { cartItems, cartTotal, clearCart } = useCart();
+  const { cartItems, clearCart } = useCart();
 
   const router = useRouter();
 
@@ -29,12 +29,9 @@ const CheckoutButton = () => {
     }
 
     const purchaseData = {
-      studentId: session.user.id,
-      studentEmail: session.user.email,
+      
       items: cartItems,
-      totalPrice: cartTotal,
-      status: "pending",
-      createdAt: new Date(),
+      
     };
 
     const result = await createPurchase(purchaseData);

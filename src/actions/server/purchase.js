@@ -15,6 +15,7 @@ export const createPurchase = async (purchaseData) => {
       messege:"You must be logged in"
     }
   }
+// only student can purchase
 
   if(user.role !== "student"){
     return{
@@ -23,10 +24,29 @@ export const createPurchase = async (purchaseData) => {
     }
   }
 
+  // check purchase data
+  if(!purchaseData?.items || purchaseData.items.length === 0){
+    return{
+      success: false,
+      message: "Your cart is empty"
+    }
+  }
+
+  // create purchase using authenticated user data
+  const newPurchase ={
+    studentId: user.id,
+    studentEmail: user.email,
+    items: purchaseData.items,
+    totalPrice: purchaseData.items.reduce(
+      (total, item)=>total + item.price, 0,
+    ),
+    status:"pending",
+    createdAt:new Date(),
+  };
 
 
   const result = await dbConnect(collections.PURCHASES).insertOne(
-    purchaseData
+    newPurchase,
   );
 
   if (!result.acknowledged) {
