@@ -1,27 +1,96 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default;
 }
+
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-   /* Brand */
-  --color-primary: oklch(65% 0.23 35);
-  --color-secondary: oklch(58% 0.18 30);
-  --color-accent: oklch(72% 0.20 55);
+
+  /* Brand */
+  --color-primary: oklch(55% 0.27 292);
+  --color-primary-content: oklch(98% 0.01 292);
+
+  --color-secondary: oklch(62% 0.27 315);
+  --color-secondary-content: oklch(98% 0.01 315);
+
+  --color-accent: oklch(70% 0.20 220);
+  --color-accent-content: oklch(18% 0.04 255);
 
   /* Base */
   --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(97% 0.01 95);
-  --color-base-300: oklch(92% 0.015 95);
+  --color-base-200: oklch(97% 0.015 285);
+  --color-base-300: oklch(92% 0.025 285);
 
   /* Neutral */
-  --color-neutral: oklch(35% 0.01 260);
-  --color-neutral-content: oklch(96% 0 0);
+  --color-neutral: oklch(23% 0.035 275);
+  --color-neutral-content: oklch(97% 0.01 285);
 
   /* Feedback */
-  --color-success: oklch(70% 0.17 145);
-  --color-error: oklch(62% 0.24 28);
+  --color-info: oklch(65% 0.20 230);
+  --color-info-content: oklch(98% 0.01 230);
+
+  --color-success: oklch(68% 0.18 155);
+  --color-success-content: oklch(98% 0.01 155);
+
+  --color-warning: oklch(78% 0.17 85);
+  --color-warning-content: oklch(25% 0.04 85);
+
+  --color-error: oklch(62% 0.23 25);
+  --color-error-content: oklch(98% 0.01 25);
 }
 
 @custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
+
+/* Premium EdTech Gradients */
+
+@utility gradient-primary {
+  background: linear-gradient(
+    135deg,
+    oklch(48% 0.28 285),
+    oklch(58% 0.29 310),
+    oklch(66% 0.23 335)
+  );
+}
+
+@utility gradient-brand {
+  background: linear-gradient(
+    135deg,
+    oklch(45% 0.27 285),
+    oklch(56% 0.28 305),
+    oklch(68% 0.22 325),
+    oklch(70% 0.18 220)
+  );
+}
+
+@utility gradient-text {
+  background: linear-gradient(
+    90deg,
+    oklch(50% 0.28 285),
+    oklch(60% 0.29 315),
+    oklch(68% 0.22 335)
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-base-100), var(--color-base-100)) padding-box,
+    linear-gradient(
+      135deg,
+      oklch(50% 0.28 285),
+      oklch(62% 0.29 315),
+      oklch(70% 0.18 220)
+    ) border-box;
+}
+
+@utility glow-primary {
+  box-shadow:
+    0 10px 35px oklch(55% 0.27 292 / 0.20),
+    0 4px 15px oklch(62% 0.27 315 / 0.15);
+}

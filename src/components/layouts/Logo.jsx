@@ -8,7 +8,7 @@ const Logo = () => {
       <Image
       
         alt="logo-edtech.pnd"
-        src={"/assets/logo.png"}
+        src={"/assets/edtech1-logo.png"}
         width={50}
         height={40}
       >

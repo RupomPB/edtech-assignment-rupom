@@ -97,7 +97,7 @@ export const getPurchasesByStudent = async () => {
 export const getAllPurchases = async () => {
 
   // checking if isAdmin 
-  const user = getCurrentUser();
+  const user = await getCurrentUser();
 
   if(!user){
     return [];

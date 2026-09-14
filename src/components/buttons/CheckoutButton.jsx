@@ -4,10 +4,12 @@ import { useSession } from "next-auth/react";
 import { useCart } from "@/context/CartContext";
 import { createPurchase } from "@/actions/server/purchase";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const CheckoutButton = () => {
   const { data: session } = useSession();
   const { cartItems, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -17,7 +19,7 @@ const CheckoutButton = () => {
       return;
     }
 
-    // protection for admin role (only student can make purchase)
+    // Only student can make purchase
     if (session.user.role !== "student") {
       router.push("/forbidden");
       return;
@@ -29,27 +31,37 @@ const CheckoutButton = () => {
     }
 
     const purchaseData = {
-      
       items: cartItems,
-      
     };
 
-    const result = await createPurchase(purchaseData);
+    setLoading(true);
 
-    if (result.success) {
-      alert("Purchase request submitted!");
+    try {
+      const result = await createPurchase(purchaseData);
 
-      clearCart();
+      if (result.success) {
+        alert("Purchase request submitted!");
 
-      router.push("/dashboard");
-    } else {
-      alert("Something went wrong");
+        clearCart();
+        router.push("/dashboard");
+      } else {
+        alert(result.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleCheckout} className="btn btn-primary w-full">
-      Proceed to Checkout
+    <button
+      onClick={handleCheckout}
+      disabled={loading}
+      className="btn btn-primary w-full"
+    >
+      {loading ? "Processing..." : "Proceed to Checkout"}
     </button>
   );
 };
