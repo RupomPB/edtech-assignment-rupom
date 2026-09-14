@@ -47,10 +47,25 @@ export const createPurchase = async (purchaseData) => {
 
 };
 
-// for student 
-export const getPurchasesByStudent = async (studentId) => {
+// for student purchase
+
+export const getPurchasesByStudent = async () => {
+
+  // security for is student id authentic or not
+  const user = await getCurrentUser();
+
+  if(!user){
+    return [];
+  }
+
+  if(user.role !== "student"){
+    return [];
+  }
+
+
   const purchases = await dbConnect(collections.PURCHASES)
-    .find({ studentId })
+  
+    .find({ studentId: user.id }) //now anyone can't give other student id 
     .sort({ createdAt: -1 })
     .toArray();
 
