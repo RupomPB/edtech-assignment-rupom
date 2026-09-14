@@ -92,8 +92,21 @@ export const getPurchasesByStudent = async () => {
   return purchases;
 };
 
-// for admin
+// for admin 
+
 export const getAllPurchases = async () => {
+
+  // checking if isAdmin 
+  const user = getCurrentUser();
+
+  if(!user){
+    return [];
+  }
+
+  if(user.role !== 'admin'){
+    return [];
+  }
+
   const purchases = await dbConnect(collections.PURCHASES)
     .find({})
     .sort({ createdAt: -1 })
