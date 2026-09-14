@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EdTech Platform
 
-## Getting Started
+A mini EdTech platform built with Next.js for browsing courses and combo packages, managing a shopping cart, submitting demo purchase requests, and managing purchases through a role-based admin dashboard.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Student Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Student registration with email and password
+- Secure password hashing with bcrypt
+- Credentials-based login
+- Google authentication
+- Browse available courses
+- Browse combo packages
+- View course details
+- View combo details
+- Add courses and combos to cart
+- User-specific cart using localStorage
+- Demo checkout
+- Submit purchase requests
+- View personal purchase history
+- Track purchase status
+- Edit profile name
+- Protected student dashboard
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Admin Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Separate admin dashboard
+- Admin-only access control
+- View all student purchase requests
+- View total purchase count
+- View pending purchases
+- View processing purchases
+- View delivered purchases
+- View cancelled purchases
+- Update purchase status
+- Dashboard statistics update after status changes without manually refreshing the browser
 
-## Learn More
+### Authentication & Authorization
 
-To learn more about Next.js, take a look at the following resources:
+- NextAuth.js authentication
+- Credentials authentication
+- Google OAuth authentication
+- Password hashing with bcryptjs
+- Student and admin role separation
+- Protected student dashboard
+- Protected admin dashboard
+- Server-side role authorization
+- Server-side purchase authorization
+- Students can access only their own purchase history
+- Students can update only their own profile
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Frontend
 
-## Deploy on Vercel
+- Next.js 16.3.4
+- React 19.2.8
+- JavaScript
+- Tailwind CSS 4.3.3
+- DaisyUI 5.7.32
+- Lucide React
+- React Icons
+- SweetAlert2
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js Server Actions
+- NextAuth.js
+- MongoDB Node.js Driver
+- MongoDB Atlas
+- bcryptjs
+
+### Other
+
+- Axios
+- ESLint
+
+## Project Structure
+
+```text
+src/
+├── actions/
+│   └── server/
+│       ├── auth.js
+│       ├── course.js
+│       └── purchase.js
+│
+├── app/
+│   ├── admin/
+│   ├── api/
+│   │   └── auth/
+│   ├── cart/
+│   ├── combos/
+│   ├── contact/
+│   ├── courses/
+│   ├── dashboard/
+│   ├── forbidden/
+│   ├── login/
+│   ├── register/
+│   ├── layout.jsx
+│   ├── loading.jsx
+│   ├── not-found.jsx
+│   └── page.jsx
+│
+├── components/
+│   ├── admin/
+│   ├── auth/
+│   ├── buttons/
+│   ├── cards/
+│   ├── dashboard/
+│   └── layouts/
+│
+├── context/
+│   └── CartContext.jsx
+│
+├── lib/
+│   ├── authGuard.js
+│   ├── authOptions.js
+│   └── dbConnect.js
+│
+└── provider/
+    └── NextAuthProvider.jsx
