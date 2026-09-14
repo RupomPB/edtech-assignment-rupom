@@ -5,6 +5,7 @@ import { useCart } from "@/context/CartContext";
 import { createPurchase } from "@/actions/server/purchase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const CheckoutButton = () => {
   const { data: session } = useSession();
@@ -26,7 +27,13 @@ const CheckoutButton = () => {
     }
 
     if (cartItems.length === 0) {
-      alert("Your cart is empty");
+      Swal.fire({
+        icon: "info",
+        title: "Your Cart Is Empty",
+        text: "Please add a course or combo before checkout.",
+        confirmButtonText: "Browse Courses",
+        confirmButtonColor: "#6d28d9",
+      });
       return;
     }
 
@@ -40,16 +47,35 @@ const CheckoutButton = () => {
       const result = await createPurchase(purchaseData);
 
       if (result.success) {
-        alert("Purchase request submitted!");
+        await Swal.fire({
+          icon: "success",
+          title: "Purchase Request Submitted!",
+          text: "Your purchase request has been submitted successfully.",
+          confirmButtonText: "Go to Dashboard",
+          confirmButtonColor: "#6d28d9",
+        });
 
         clearCart();
         router.push("/dashboard");
       } else {
-        alert(result.message || "Something went wrong");
+        Swal.fire({
+          icon: "error",
+          title: "Purchase Failed",
+          text: result.message || "Something went wrong.",
+          confirmButtonText: "Try Again",
+          confirmButtonColor: "#6d28d9",
+        });
       }
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("Something went wrong. Please try again.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Something Went Wrong",
+        text: "Please try again later.",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "#6d28d9",
+      });
     } finally {
       setLoading(false);
     }
@@ -59,9 +85,16 @@ const CheckoutButton = () => {
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className="btn btn-primary w-full"
+      className="btn btn-primary w-full rounded-xl border-0 bg-gradient-to-r from-primary to-secondary text-base font-semibold shadow-md shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25 disabled:hover:translate-y-0"
     >
-      {loading ? "Processing..." : "Proceed to Checkout"}
+      {loading ? (
+        <>
+          <span className="loading loading-spinner loading-sm"></span>
+          Processing...
+        </>
+      ) : (
+        "Proceed to Checkout"
+      )}
     </button>
   );
 };

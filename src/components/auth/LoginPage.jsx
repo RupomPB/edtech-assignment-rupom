@@ -60,27 +60,30 @@ const LoginPage = () => {
   router.refresh();
 };
   return (
-    <main className="min-h-screen bg-base-200 px-4 py-10">
-      <div className="mx-auto flex min-h-[80vh] max-w-md items-center justify-center">
-        <div className="w-full rounded-3xl border border-base-300 bg-base-100 p-6 shadow-xl sm:p-8">
+    <main className="relative min-h-screen overflow-hidden bg-base-200 px-4 py-10 sm:py-14">
+      <div className="pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-10 h-80 w-80 rounded-full bg-secondary/15 blur-3xl" />
+
+      <div className="relative mx-auto flex min-h-[80vh] max-w-md items-center justify-center">
+        <div className="w-full rounded-3xl border border-base-300/70 bg-base-100/95 p-6 shadow-2xl shadow-primary/5 backdrop-blur-xl sm:p-8">
           {/* Header */}
           <div className="text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-2xl text-primary-content">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-2xl text-primary-content shadow-lg shadow-primary/20">
               🎓
             </div>
 
-            <h1 className="mt-5 text-3xl font-extrabold">
+            <h1 className="mt-5 text-3xl font-extrabold tracking-tight">
               Welcome Back
             </h1>
 
-            <p className="mt-2 text-sm text-base-content/60">
+            <p className="mt-2 text-sm leading-6 text-base-content/60">
               Login to continue your learning journey
             </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="alert alert-error mt-6 rounded-xl">
+            <div className="alert alert-error mt-6 rounded-xl border border-error/20">
               <span>{error}</span>
             </div>
           )}
@@ -96,17 +99,17 @@ const LoginPage = () => {
                 Email Address
               </label>
 
-              <label className="input input-bordered flex w-full items-center gap-3 rounded-xl">
+              <label className="input input-bordered flex w-full items-center gap-3 rounded-xl border-base-300 bg-base-100 transition-all duration-200 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
                 <Mail
                   size={19}
-                  className="text-base-content/50"
+                  className="text-base-content/40 transition-colors duration-200"
                 />
 
                 <input
                   type="email"
                   name="email"
                   placeholder="Enter your email"
-                  className="grow"
+                  className="grow bg-transparent"
                   required
                 />
               </label>
@@ -121,23 +124,23 @@ const LoginPage = () => {
 
                 <Link
                   href="#"
-                  className="text-xs font-semibold text-primary hover:underline"
+                  className="text-xs font-semibold text-primary transition-colors hover:text-secondary hover:underline"
                 >
                   Forgot password?
                 </Link>
               </div>
 
-              <label className="input input-bordered flex w-full items-center gap-3 rounded-xl">
+              <label className="input input-bordered flex w-full items-center gap-3 rounded-xl border-base-300 bg-base-100 transition-all duration-200 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
                 <Lock
                   size={19}
-                  className="text-base-content/50"
+                  className="text-base-content/40 transition-colors duration-200"
                 />
 
                 <input
                   type="password"
                   name="password"
                   placeholder="Enter your password"
-                  className="grow"
+                  className="grow bg-transparent"
                   required
                 />
               </label>
@@ -147,7 +150,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full rounded-xl text-base"
+              className="btn btn-primary mt-2 w-full rounded-xl border-0 bg-gradient-to-r from-primary to-secondary text-base font-semibold shadow-md shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25 disabled:hover:translate-y-0"
             >
               {loading ? (
                 <>
@@ -161,10 +164,10 @@ const LoginPage = () => {
           </form>
 
           {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
+          <div className="my-7 flex items-center gap-3">
             <div className="h-px flex-1 bg-base-300"></div>
 
-            <span className="text-xs font-medium text-base-content/50">
+            <span className="text-[11px] font-semibold tracking-wider text-base-content/40">
               OR CONTINUE WITH
             </span>
 
@@ -182,7 +185,7 @@ const LoginPage = () => {
 
             <Link
               href={`/register?callbackUrl=${callback}`}
-              className="font-bold text-primary hover:underline"
+              className="font-bold text-primary transition-colors hover:text-secondary hover:underline"
             >
               Create an account
             </Link>

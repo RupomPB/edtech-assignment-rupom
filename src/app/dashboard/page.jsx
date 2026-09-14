@@ -140,28 +140,59 @@ const DashboardPage = async () => {
           </div>
         </div>
 
-        {/* Profile */}
-        <div className="mt-10">
-          <div className="mb-5 flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-secondary text-primary-content shadow-lg">
-              <FaUserCircle className="text-xl" />
-            </div>
+{/* Profile */}
+<div className="mt-10">
+  <div className="mb-6 flex items-center justify-between gap-4">
+    <div className="flex items-center gap-4">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-secondary text-primary-content shadow-lg shadow-primary/20">
+        <FaUserCircle className="text-xl" />
+      </div>
 
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight">
-                My Profile
-              </h2>
+      <div>
+        <h2 className="text-2xl font-extrabold tracking-tight">
+          My Profile
+        </h2>
 
-              <p className="mt-1 text-sm text-base-content/60">
-                Manage your personal information
-              </p>
-            </div>
-          </div>
+        <p className="mt-1 text-sm text-base-content/55">
+          Manage your personal information
+        </p>
+      </div>
+    </div>
 
-          <div className="overflow-hidden rounded-3xl border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
-            <ProfileEdit user={user}></ProfileEdit>
-          </div>
+    <div className="hidden rounded-full border border-primary/15 bg-primary/5 px-4 py-2 text-xs font-semibold text-primary sm:block">
+      Account Settings
+    </div>
+  </div>
+
+  <div className="group relative overflow-hidden rounded-3xl border border-base-300/70 bg-base-100 shadow-md shadow-base-content/5 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5">
+    
+    {/* Decorative Background */}
+    <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-primary/8 blur-3xl transition-all duration-500 group-hover:bg-primary/12" />
+    <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-secondary/8 blur-3xl transition-all duration-500 group-hover:bg-secondary/12" />
+
+    <div className="relative">
+      
+      {/* Card Header */}
+      <div className="flex items-center justify-between border-b border-base-300/60 px-5 py-4 sm:px-7">
+        <div>
+          <h3 className="text-sm font-bold">Personal Information</h3>
+          <p className="mt-0.5 text-xs text-base-content/50">
+            Keep your account details up to date
+          </p>
         </div>
+
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-base-200 text-primary">
+          <FaUserCircle className="text-lg" />
+        </div>
+      </div>
+
+      {/* Profile Content */}
+      <div className="p-5 sm:p-7">
+        <ProfileEdit user={user}></ProfileEdit>
+      </div>
+    </div>
+  </div>
+</div>
 
         {/* Purchases */}
         <div className="mt-12">
