@@ -323,25 +323,29 @@ const AdminPage = async () => {
                           </div>
 
                           <div className="min-w-0">
-                            <p className="truncate font-semibold">
-                              {item.title}
-                            </p>
+  <p className="truncate font-semibold">
+    {item.title}
+  </p>
 
-                            <p className="mt-1 text-sm capitalize text-base-content/50">
-                              {item.type || "Course"}
-                            </p>
-                          </div>
+  <p className="mt-1 text-sm capitalize text-base-content/50">
+    {item.type || "Course"}
+  </p>
+
+  <p className="mt-1 text-sm font-medium text-base-content/60">
+    Quantity: {item.quantity || 1}
+  </p>
+</div>
                         </div>
 
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-base-content/40">
-                            Price
-                          </span>
+                        <div className="shrink-0 text-right">
+  <p className="text-lg font-bold text-primary">
+    ৳ {(item.price * (item.quantity || 1)).toLocaleString()}
+  </p>
 
-                          <p className="text-lg font-bold text-primary">
-                            ৳ {item.price}
-                          </p>
-                        </div>
+  <p className="mt-1 text-xs text-base-content/50">
+    ৳ {item.price.toLocaleString()} × {item.quantity || 1}
+  </p>
+</div>
                       </div>
                     ))}
                   </div>
@@ -376,7 +380,7 @@ const AdminPage = async () => {
                         </p>
 
                         <p className="mt-1 text-2xl font-extrabold text-primary">
-                          ৳ {purchase.totalPrice}
+                          ৳ {purchase.totalPrice.toLocaleString()}
                         </p>
                       </div>
 

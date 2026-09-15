@@ -38,8 +38,9 @@ export const createPurchase = async (purchaseData) => {
     studentEmail: user.email,
     items: purchaseData.items,
     totalPrice: purchaseData.items.reduce(
-      (total, item)=>total + item.price, 0,
-    ),
+  (total, item) => total + item.price * (item.quantity || 1),
+  0,
+),
     status:"pending",
     createdAt:new Date(),
   };

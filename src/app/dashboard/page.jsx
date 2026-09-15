@@ -335,12 +335,23 @@ const DashboardPage = async () => {
                               <p className="mt-1 text-sm capitalize text-base-content/50">
                                 {item.type}
                               </p>
+                              
+                              <p className="mt-1 text-sm font-medium text-base-content/60">
+  Quantity: {item.quantity || 1}
+</p>
+
                             </div>
                           </div>
 
-                          <p className="shrink-0 text-lg font-bold text-primary">
-                            ৳ {item.price}
-                          </p>
+                          <div className="shrink-0 text-right">
+  <p className="text-lg font-bold text-primary">
+    ৳ {(item.price * (item.quantity || 1)).toLocaleString()}
+  </p>
+
+  <p className="mt-1 text-xs text-base-content/50">
+    ৳ {item.price.toLocaleString()} × {item.quantity || 1}
+  </p>
+</div>
                         </div>
                       ))}
                     </div>
@@ -372,7 +383,7 @@ const DashboardPage = async () => {
                         </p>
 
                         <p className="mt-1 text-2xl font-extrabold text-primary">
-                          ৳ {purchase.totalPrice}
+                          ৳ {purchase.totalPrice.toLocaleString()}
                         </p>
                       </div>
                     </div>

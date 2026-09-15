@@ -6,7 +6,8 @@ import CheckoutButton from "@/components/buttons/CheckoutButton";
 import Image from "next/image";
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, cartTotal } = useCart();
+  const { cartItems, removeFromCart, cartTotal,increaseQuantity,
+  decreaseQuantity, } = useCart();
 
   return (
     <div className="min-h-screen bg-base-200/50">
@@ -79,9 +80,33 @@ const CartPage = () => {
                       </h2>
                     </div>
 
-                    <p className="text-lg font-extrabold text-primary">
-                      ৳ {item.price.toLocaleString()}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-4">
+  <div className="flex items-center gap-2 rounded-full border border-base-300 bg-base-200/60 p-1">
+    <button
+      onClick={() => decreaseQuantity(item.id, item.type)}
+      className="btn btn-sm btn-circle btn-ghost hover:bg-primary/10 hover:text-primary"
+      aria-label={`Decrease quantity of ${item.title}`}
+    >
+      −
+    </button>
+
+    <span className="min-w-8 text-center text-sm font-bold">
+      {item.quantity}
+    </span>
+
+    <button
+      onClick={() => increaseQuantity(item.id, item.type)}
+      className="btn btn-sm btn-circle btn-ghost hover:bg-primary/10 hover:text-primary"
+      aria-label={`Increase quantity of ${item.title}`}
+    >
+      +
+    </button>
+  </div>
+
+  <p className="text-lg font-extrabold text-primary">
+    ৳ {(item.price * item.quantity).toLocaleString()}
+  </p>
+</div>
                   </div>
 
                   <div className="flex items-start">

@@ -14,35 +14,35 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 
 ## Features
 
-### Student Features
-- Student registration with email and password
-- Secure password hashing with bcrypt
-- Credentials-based login
-- Google authentication
-- Browse available courses
-- Browse combo packages
-- View course details
-- View combo details
+### 👨‍🎓 Student Features
+- Browse courses and combo packages
+- View course and combo details
 - Add courses and combos to cart
-- User-specific cart using localStorage
-- Demo checkout
+- Increase or decrease cart item quantity
+- Remove items from cart
+- Cart data is stored separately for each logged-in user
+- Automatic total price calculation
+- Demo checkout system
 - Submit purchase requests
 - View personal purchase history
 - Track purchase status
-- Edit profile name
-- Protected student dashboard
+- Edit profile information
+- Login with email/password
+- Google authentication
 
-### Admin Features
-- Separate admin dashboard
-- Admin-only access control
+### 👨‍💼 Admin Features
+- Admin-only dashboard
 - View all student purchase requests
-- View total purchase count
-- View pending purchases
-- View processing purchases
-- View delivered purchases
-- View cancelled purchases
+- View student information
+- View purchased courses and combos
+- View item quantities and prices
+- View total purchase amount
 - Update purchase status
-- Dashboard statistics update after status changes without manually refreshing the browser
+- Supported statuses:
+  - Pending
+  - Processing
+  - Delivered
+  - Cancelled
 
 ### Authentication & Authorization
 - NextAuth.js authentication
@@ -56,6 +56,15 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 - Server-side purchase authorization
 - Students can access only their own purchase history
 - Students can update only their own profile
+
+### 🛒 Cart & Checkout
+- Add courses and combo packages to cart
+- Increase or decrease item quantity
+- Remove items from cart
+- Cart quantity is persisted per logged-in user
+- Automatic total price calculation based on item quantity
+- Checkout and purchase request submission
+- Students can only access the checkout functionality
 
 ## Tech Stack
 
@@ -214,6 +223,15 @@ Create a `.env.local` file in the project root.
     GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 Never commit `.env.local` or any secret credentials to GitHub.
+
+## 🔐 Demo Credentials
+
+### Admin Account
+
+- **Email:** `admin@gmail.com`
+- **Password:** `123456`
+
+> ⚠️ Demo account for testing the Admin Dashboard and purchase management features.
 
 ## Getting Started
 

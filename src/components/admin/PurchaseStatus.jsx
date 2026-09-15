@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { updatedPurchaseStatus } from "@/actions/server/purchase";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const PurchaseStatus = ({ purchaseId, currentStatus }) => {
   const [status, setStatus] = useState(currentStatus);
@@ -39,18 +40,40 @@ const PurchaseStatus = ({ purchaseId, currentStatus }) => {
     try {
       const result = await updatedPurchaseStatus(purchaseId, newStatus);
       if (!result.success) {
-        alert(result.message);
+        Swal.fire({
+          icon: "error",
+          title: "Update Failed",
+          text: result.message || "Failed to update purchase status.",
+          confirmButtonText: "Try Again",
+          confirmButtonColor: "#6d28d9",
+        });
+
         setStatus(currentStatus);
         return;
       }
-      alert("Purchase status updated");
+
+      await Swal.fire({
+        icon: "success",
+        title: "Status Updated!",
+        text: `Purchase status changed to ${newStatus}.`,
+        confirmButtonText: "Great",
+        confirmButtonColor: "#6d28d9",
+      });
 
       // For updated MongoDB data status update imediately in ui
       router.refresh(); 
 
     } catch (error) {
       console.error("Status update error:", error);
-      alert("Something went wrong. Please try again.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Something Went Wrong",
+        text: "Something went wrong. Please try again.",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "#6d28d9",
+      });
+
       setStatus(currentStatus);
     } finally {
       setLoading(false);

@@ -24,13 +24,19 @@ const CartStateProvider = ({ children, userId }) => {
     }
 
     try {
-      return JSON.parse(savedCart);
+      const parsedCart = JSON.parse(savedCart);
+
+      return parsedCart.map((item)=>({
+        ...item,
+        quantity: item.quantity || 1,
+      }))
+
     } catch {
       return [];
     }
   });
 
-  // cart change হলে localStorage-এ save হবে
+  // if cart change it will save in  localStorage 
   useEffect(() => {
     if (!userId) return;
 
@@ -47,13 +53,41 @@ const CartStateProvider = ({ children, userId }) => {
           cartItem.id === item.id && cartItem.type === item.type,
       );
 
-      if (alreadyExists) {
-        return previousItems;
+      if(alreadyExists){
+        return previousItems.map((cartItem)=>
+        cartItem.id === item.id && cartItem.type === item.type
+        ? {...cartItem, quantity: (cartItem.quantity || 1) + 1}
+        : cartItem,
+        )
       }
 
-      return [...previousItems, item];
+      return [...previousItems, {...item, quantity: 1}];
     });
   };
+
+  // increase function
+  const increaseQuantity =(id, type)=>{
+    setCartItems(
+      (previousItems)=>
+        previousItems.map(item =>
+          item.id === id && item.type=== type
+          ? {...item, quantity:  (item.quantity || 1) + 1}
+          : item,
+        )
+    )
+  }
+
+// decrease function
+  const decreaseQuantity =(id, type)=>{
+    setCartItems(
+      (previousItems)=>
+        previousItems.map(item =>
+          item.id === id && item.type=== type
+          ? {...item, quantity: Math.max(1, (item.quantity || 1) - 1)}
+          : item,
+        )
+    )
+  }
 
   // remove item from cart
   const removeFromCart = (id, type) => {
@@ -71,7 +105,7 @@ const CartStateProvider = ({ children, userId }) => {
 
   // total price
   const cartTotal = cartItems.reduce(
-    (total, item) => total + item.price,
+    (total, item) => total + item.price * item.quantity,
     0,
   );
 
@@ -83,6 +117,9 @@ const CartStateProvider = ({ children, userId }) => {
         removeFromCart,
         cartTotal,
         clearCart,
+        increaseQuantity,
+        decreaseQuantity,
+
       }}
     >
       {children}
