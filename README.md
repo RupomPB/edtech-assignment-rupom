@@ -1,6 +1,16 @@
-# EdTech Platform
+# EdTech Platform – Courses & Combos
 
-A mini EdTech platform built with Next.js for browsing courses and combo packages, managing a shopping cart, submitting demo purchase requests, and managing purchases through a role-based admin dashboard.
+A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwind CSS, and DaisyUI.
+
+## 🔗 Live Demo
+
+🌐 **[Visit Live Website](https://edtech-assignment-rupom.vercel.app)**
+
+## 📂 Repository
+
+💻 **[View Source Code on GitHub](https://github.com/RupomPB/edtech-assignment-rupom)**
+
+---
 
 ## Features
 
