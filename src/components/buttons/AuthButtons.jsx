@@ -24,7 +24,7 @@ const AuthButtons = () => {
             btn-sm
             rounded-full
             border-0
-            bg-gradient-to-r
+            bg-linear-to-r
             from-primary
             to-secondary
             px-5

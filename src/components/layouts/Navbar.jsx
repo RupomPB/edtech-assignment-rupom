@@ -157,7 +157,7 @@ const Navbar = () => {
                   items-center
                   justify-center
                   rounded-full
-                  bg-gradient-to-r
+                  bg-linear-to-r
                   from-primary
                   to-secondary
                   px-1

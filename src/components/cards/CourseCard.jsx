@@ -22,7 +22,7 @@ const CourseCard = ({ course }) => {
           </span>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
 
       {/* Content */}
@@ -40,7 +40,7 @@ const CourseCard = ({ course }) => {
 
         {/* Instructor */}
         <div className="mt-5 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/15 to-secondary/15 font-bold text-primary ring-1 ring-primary/10">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-primary/15 to-secondary/15 font-bold text-primary ring-1 ring-primary/10">
             {course.instructor.charAt(0)}
           </div>
 

@@ -68,7 +68,7 @@ const LoginPage = () => {
         <div className="w-full rounded-3xl border border-base-300/70 bg-base-100/95 p-6 shadow-2xl shadow-primary/5 backdrop-blur-xl sm:p-8">
           {/* Header */}
           <div className="text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-2xl text-primary-content shadow-lg shadow-primary/20">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-secondary text-2xl text-primary-content shadow-lg shadow-primary/20">
               🎓
             </div>
 
@@ -150,7 +150,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary mt-2 w-full rounded-xl border-0 bg-gradient-to-r from-primary to-secondary text-base font-semibold shadow-md shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25 disabled:hover:translate-y-0"
+              className="btn btn-primary mt-2 w-full rounded-xl border-0 bg-linear-to-r from-primary to-secondary text-base font-semibold shadow-md shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25 disabled:hover:translate-y-0"
             >
               {loading ? (
                 <>

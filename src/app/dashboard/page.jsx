@@ -80,7 +80,7 @@ const DashboardPage = async () => {
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <div className="flex items-center gap-2 rounded-full border border-base-300 bg-base-200/70 px-4 py-2 text-sm">
                     <FaUserCircle className="text-primary" />
-                    <span className="max-w-[220px] truncate">
+                    <span className="max-w-55 truncate">
                       {user.email}
                     </span>
                   </div>
@@ -91,7 +91,7 @@ const DashboardPage = async () => {
                 </div>
               </div>
 
-              <div className="grid w-full gap-4 sm:grid-cols-2 lg:w-[330px]">
+              <div className="grid w-full gap-4 sm:grid-cols-2 lg:w-82.5">
                 <div className="group rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="flex items-center justify-between">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -366,7 +366,7 @@ const DashboardPage = async () => {
                         </div>
                       </div>
 
-                      <div className="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 sm:min-w-[180px] sm:text-right">
+                      <div className="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4 sm:min-w-45 sm:text-right">
                         <p className="text-xs font-bold uppercase tracking-wider text-base-content/50">
                           Total Amount
                         </p>

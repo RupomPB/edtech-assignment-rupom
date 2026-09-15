@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Banner = () => {
   return (
     <section className="mx-auto w-11/12 py-10 md:py-16">
-      <div className="relative overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10 px-6 py-10 shadow-sm md:px-12 md:py-14 lg:px-16 lg:py-16">
+      <div className="relative overflow-hidden rounded-3xl border border-primary/10 bg-linear-to-br from-primary/10 via-base-100 to-secondary/10 px-6 py-10 shadow-sm md:px-12 md:py-14 lg:px-16 lg:py-16">
         
         {/* Decorative blur */}
         <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
@@ -32,14 +33,20 @@ const Banner = () => {
               Start learning today and take your skills to the next level.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <button className="btn btn-primary rounded-full border-0 px-7 shadow-md shadow-primary/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30">
+             <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/courses"
+                className="btn rounded-full border-primary/30 bg-base-100/70 px-7 text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-content hover:shadow-md"
+              >
                 Explore Courses
-              </button>
+              </Link>
 
-              <button className="btn rounded-full border-primary/30 bg-base-100/70 px-7 text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-content hover:shadow-md">
+              {/* <Link
+                href="/courses"
+                className="btn rounded-full border-primary/30 bg-base-100/70 px-7 text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-content hover:shadow-md"
+              >
                 View Combos
-              </button>
+              </Link> */}
             </div>
 
             {/* Small info */}
