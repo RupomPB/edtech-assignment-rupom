@@ -4,47 +4,51 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 
 ## 🔗 Live Demo
 
-🌐 **[Visit Live Website](https://edtech-assignment-rupom.vercel.app)**
+🌐 [Visit Live Website](https://edtech-assignment-rupom.vercel.app)
 
 ## 📂 Repository
 
-💻 **[View Source Code on GitHub](https://github.com/RupomPB/edtech-assignment-rupom)**
+💻 [View Source Code on GitHub](https://github.com/RupomPB/edtech-assignment-rupom)
 
 ---
 
-## Features
+## ✨ Features
 
 ### 👨‍🎓 Student Features
+
 - Browse courses and combo packages
 - View course and combo details
 - Add courses and combos to cart
 - Increase or decrease cart item quantity
 - Remove items from cart
 - Cart data is stored separately for each logged-in user
-- Automatic total price calculation
+- Automatic total price calculation based on quantity
 - Demo checkout system
 - Submit purchase requests
 - View personal purchase history
 - Track purchase status
 - Edit profile information
-- Login with email/password
+- Login with email and password
 - Google authentication
 
 ### 👨‍💼 Admin Features
+
 - Admin-only dashboard
 - View all student purchase requests
 - View student information
 - View purchased courses and combos
 - View item quantities and prices
 - View total purchase amount
+- Monitor purchase statistics
 - Update purchase status
-- Supported statuses:
+- Supported purchase statuses:
   - Pending
   - Processing
   - Delivered
   - Cancelled
 
-### Authentication & Authorization
+### 🔐 Authentication & Authorization
+
 - NextAuth.js authentication
 - Credentials authentication
 - Google OAuth authentication
@@ -58,17 +62,21 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 - Students can update only their own profile
 
 ### 🛒 Cart & Checkout
+
 - Add courses and combo packages to cart
 - Increase or decrease item quantity
 - Remove items from cart
 - Cart quantity is persisted per logged-in user
-- Automatic total price calculation based on item quantity
+- Automatic total price calculation
 - Checkout and purchase request submission
 - Students can only access the checkout functionality
 
-## Tech Stack
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
+
 - Next.js 16.3.4
 - React 19.2.8
 - JavaScript
@@ -79,6 +87,7 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 - SweetAlert2
 
 ### Backend
+
 - Next.js Server Actions
 - NextAuth.js
 - MongoDB Node.js Driver
@@ -86,10 +95,15 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
 - bcryptjs
 
 ### Other
-- Axios
-- ESLint
 
-## Project Structure
+- ESLint
+- Git
+- GitHub
+- Vercel
+
+---
+
+## 📁 Project Structure
 
     src/
     ├── actions/
@@ -134,47 +148,66 @@ A mini EdTech e-commerce platform built with Next.js, MongoDB, NextAuth, Tailwin
     └── provider/
         └── NextAuthProvider.jsx
 
-## User Roles
+---
+
+## 👥 User Roles
 
 ### Student
+
 A student can:
+
 - Register and login
 - Browse courses and combos
+- View course and combo details
 - Add items to cart
+- Increase or decrease item quantity
+- Remove items from cart
 - Submit purchase requests
 - View their own purchase history
 - Track purchase status
 - Edit their profile
 
 ### Admin
+
 An admin can:
+
 - Access the admin dashboard
 - View all purchase requests
 - Monitor purchase statistics
+- View student and purchase information
 - Update purchase status
 
 Available purchase statuses:
-- pending
-- processing
-- delivered
-- cancelled
 
-## Database Collections
+- `pending`
+- `processing`
+- `delivered`
+- `cancelled`
+
+---
+
+## 🗄️ Database Collections
 
 The application uses MongoDB with the following collections:
-- students
-- courses
-- combos
-- purchases
+
+- `students`
+- `courses`
+- `combos`
+- `purchases`
 
 ### Students
+
 Stores registered users and their authentication information.
+
 Available roles:
-- student
-- admin
+
+- `student`
+- `admin`
 
 ### Courses
+
 Stores course information such as:
+
 - Title
 - Thumbnail
 - Price
@@ -187,8 +220,11 @@ Stores course information such as:
 - Student count
 
 ### Combos
+
 Stores combo packages containing multiple courses.
+
 Combo data includes:
+
 - Title
 - Thumbnail
 - Description
@@ -200,18 +236,25 @@ Combo data includes:
 - Total courses
 
 ### Purchases
-Stores student purchase requests.
-Example structure:
-- studentId
-- studentEmail
-- items
-- totalPrice
-- status
-- createdAt
 
-## Environment Variables
+Stores student purchase requests.
+
+Example structure:
+
+- `studentId`
+- `studentEmail`
+- `items`
+- `totalPrice`
+- `status`
+- `createdAt`
+
+---
+
+## 🔐 Environment Variables
 
 Create a `.env.local` file in the project root.
+
+Required environment variables:
 
     MONGODB_URI=your_mongodb_connection_string
     DBNAME=your_database_name
@@ -224,7 +267,11 @@ Create a `.env.local` file in the project root.
 
 Never commit `.env.local` or any secret credentials to GitHub.
 
-## 🔐 Demo Credentials
+The production environment variables are configured securely through Vercel Environment Variables.
+
+---
+
+## 🔑 Demo Credentials
 
 ### Admin Account
 
@@ -233,100 +280,149 @@ Never commit `.env.local` or any secret credentials to GitHub.
 
 > ⚠️ Demo account for testing the Admin Dashboard and purchase management features.
 
-## Getting Started
+---
 
-1. Clone the repository
-    `git clone https://github.com/RupomPB/edtech-assignment-rupom.git`
+## 🚀 Getting Started
 
-2. Go to the project directory
-    `cd edtech-assignment-rupom`
+### 1. Clone the repository
 
-3. Install dependencies
-    `npm install`
+    git clone https://github.com/RupomPB/edtech-assignment-rupom.git
 
-4. Configure environment variables
-   Create a `.env.local` file in the project root and add the required MongoDB, NextAuth, and Google OAuth credentials.
+### 2. Go to the project directory
 
-5. Run the development server
-    `npm run dev`
+    cd edtech-assignment-rupom
+
+### 3. Install dependencies
+
+    npm install
+
+### 4. Configure environment variables
+
+Create a `.env.local` file in the project root and add the required MongoDB, NextAuth, and Google OAuth credentials.
+
+### 5. Run the development server
+
+    npm run dev
 
 Open the application in your browser:
-    `http://localhost:3000`
 
-## Google OAuth Configuration
+    http://localhost:3000
+
+---
+
+## 🔵 Google OAuth Configuration
 
 For local development, configure the Google OAuth application with the following values.
 
-- **Authorized JavaScript Origin:** `http://localhost:3000`
-- **Authorized Redirect URI:** `http://localhost:3000/api/auth/callback/google`
+### Authorized JavaScript Origin
 
-## Authentication Flow
+    http://localhost:3000
+
+### Authorized Redirect URI
+
+    http://localhost:3000/api/auth/callback/google
+
+For production:
+
+### Authorized JavaScript Origin
+
+    https://edtech-assignment-rupom.vercel.app
+
+### Authorized Redirect URI
+
+    https://edtech-assignment-rupom.vercel.app/api/auth/callback/google
+
+---
+
+## 🔄 Authentication Flow
 
 The application supports two authentication methods.
 
 ### Credentials Authentication
-- Student registers with name, email, and password.
-- Password is hashed using bcryptjs.
-- Student logs in using email and password.
-- NextAuth creates the authenticated session.
-- The user's role is stored in the session.
+
+1. Student registers with name, email, and password.
+2. Password is hashed using bcryptjs.
+3. Student logs in using email and password.
+4. NextAuth creates the authenticated session.
+5. The user's role is stored in the session.
 
 ### Google Authentication
-- User selects Google login.
-- Google OAuth authenticates the user.
-- If the user does not exist in the database, a student record is created.
-- The user receives a NextAuth session.
 
-## Cart System
+1. User selects Google login.
+2. Google OAuth authenticates the user.
+3. If the user does not exist in the database, a student record is created.
+4. The user receives a NextAuth session.
+
+---
+
+## 🛒 Cart System
 
 The cart is managed using React Context API.
+
 Cart data is stored separately for each authenticated user using localStorage.
 
 The cart key follows this pattern:
-    `edtech-cart-{userId}`
+
+    edtech-cart-{userId}
 
 This prevents different users on the same browser from sharing the same cart data.
 
-## Purchase Flow
+Cart quantity changes automatically update the cart total.
+
+---
+
+## 💳 Purchase Flow
 
     Browse Courses / Combos
-            ↓
-    Add to Cart
-            ↓
-    Login Required
-            ↓
-    Cart
-            ↓
-    Proceed to Checkout
-            ↓
+              ↓
+         Add to Cart
+              ↓
+        Login Required
+              ↓
+             Cart
+              ↓
+     Proceed to Checkout
+              ↓
     Purchase Request Created
-            ↓
-    Status: Pending
-            ↓
-    Admin Updates Status
-            ↓
+              ↓
+        Status: Pending
+              ↓
+     Admin Updates Status
+              ↓
     Processing / Delivered / Cancelled
 
-## Role-Based Authorization
+---
+
+## 🛡️ Role-Based Authorization
 
 Protected pages and server actions verify the authenticated user's role.
 
 ### Student Dashboard
+
 Only authenticated users with:
-    `role: student`
+
+    role: student
+
 can access the student dashboard.
 
 ### Admin Dashboard
+
 Only authenticated users with:
-    `role: admin`
+
+    role: admin
+
 can access the admin dashboard.
 
 Purchase status updates are also protected on the server so that only admins can change purchase status.
 
-## Server-Side Security
+---
+
+## 🔒 Server-Side Security
 
 Important authorization checks are handled on the server rather than relying only on frontend UI restrictions.
+
 Examples:
+
 - Only authenticated students can create purchases.
 - Purchase ownership is determined from the authenticated session.
 - Students can only retrieve their own purchases.
@@ -336,9 +432,12 @@ Examples:
 - Invalid purchase statuses are rejected on the server.
 - Invalid purchase IDs are rejected on the server.
 
-## UI & UX
+---
+
+## 🎨 UI & UX
 
 The application includes:
+
 - Responsive layouts
 - Loading states
 - Error handling
@@ -348,14 +447,19 @@ The application includes:
 - Admin purchase statistics
 - Responsive cart layout
 - Student profile management
+- SweetAlert2 notifications
 - Instant dashboard UI refresh after admin status updates
 
-## React Hooks & State Management
+---
+
+## ⚛️ React Hooks & State Management
 
 The project uses React hooks where they provide a practical purpose.
 
 ### useState
+
 Used for:
+
 - Form state
 - Loading states
 - Purchase status updates
@@ -363,18 +467,24 @@ Used for:
 - Cart state
 
 ### useEffect
+
 Used in the cart context to synchronize cart data with localStorage based on the authenticated user and cart changes.
 
 ### useContext
+
 Used to provide and consume the global cart state through CartContext.
 
 ### useSession
+
 Used with NextAuth.js to access the current authenticated user's session.
 
 ### useRouter
+
 Used for navigation and refreshing server-rendered data after status updates.
 
-## Next.js Features Used
+---
+
+## ⚡ Next.js Features Used
 
 - App Router
 - Server Components
@@ -387,34 +497,58 @@ Used for navigation and refreshing server-rendered data after status updates.
 - NextAuth.js authentication
 - MongoDB integration
 
-## Available Scripts
+---
 
-**Development**
-    `npm run dev`
+## 📜 Available Scripts
 
-**Production Build**
-    `npm run build`
+### Development
 
-**Start Production Server**
-    `npm run start`
+    npm run dev
 
-**Lint**
-    `npm run lint`
+### Production Build
 
-## Production Build
+    npm run build
+
+### Start Production Server
+
+    npm run start
+
+### Lint
+
+    npm run lint
+
+---
+
+## 🏗️ Production Build
 
 Before deployment, test the production build:
-    `npm run build`
+
+    npm run build
 
 If the build completes successfully, start the production server with:
-    `npm run start`
 
-## Repository
-GitHub:
-https://github.com/RupomPB/edtech-assignment-rupom.git
+    npm run start
 
-## Author
-#**Rupom PB**
+---
+
+## ☁️ Deployment
+
+The application is deployed on Vercel.
+
+🌐 **Live Website:**
+
+https://edtech-assignment-rupom.vercel.app
+
+The GitHub repository is connected to Vercel for automatic deployments when changes are pushed to the `main` branch.
+
+---
+
+## 👨‍💻 Author
+
+### Rupom PB
 
 GitHub: https://github.com/RupomPB
+
+Email: rupombadhan@gmail.com
+
 LinkedIn: https://www.linkedin.com/in/rupom-pb/
